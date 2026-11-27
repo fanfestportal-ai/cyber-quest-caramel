@@ -4,121 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КИБЕР-КВЕСТ | ВЫБОР ОТДЕЛА</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0a0e1a;
-            --text-color: #e0e0e0;
-            --police-color: #00e5ff;
-            --fbi-color: #b300ff;
-            --cyber-color: #ff9100;
-        }
-        body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(0, 229, 255, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(179, 0, 255, 0.08), transparent 25%),
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-        }
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 10px;
-            text-align: center;
-            background: linear-gradient(90deg, #00e5ff, #b300ff, #ff9100);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: pulse 3s infinite alternate;
-        }
-        p.subtitle {
-            font-size: 1.2rem;
-            color: #8892b0;
-            margin-bottom: 50px;
-            text-align: center;
-            max-width: 800px;
-        }
-        .cards-container {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 40px 30px;
-            width: 280px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(90deg, transparent, transparent);
-            transition: all 0.4s ease;
-        }
-        .card.police::before { background: linear-gradient(90deg, transparent, var(--police-color), transparent); }
-        .card.fbi::before { background: linear-gradient(90deg, transparent, var(--fbi-color), transparent); }
-        .card.cyber::before { background: linear-gradient(90deg, transparent, var(--cyber-color), transparent); }
-        
-        .card:hover { transform: translateY(-10px) scale(1.02); }
-        .card.police:hover { border-color: var(--police-color); box-shadow: 0 10px 40px rgba(0, 229, 255, 0.3); }
-        .card.fbi:hover { border-color: var(--fbi-color); box-shadow: 0 10px 40px rgba(179, 0, 255, 0.3); }
-        .card.cyber:hover { border-color: var(--cyber-color); box-shadow: 0 10px 40px rgba(255, 145, 0, 0.3); }
-
-        .card h2 { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; margin-bottom: 15px; }
-        .card p { font-size: 0.9rem; color: #8892b0; line-height: 1.5; }
-        .icon { font-size: 3rem; margin-bottom: 20px; display: block; }
-        
-        @keyframes pulse {
-            0% { text-shadow: 0 0 10px rgba(0, 229, 255, 0.2); }
-            100% { text-shadow: 0 0 20px rgba(179, 0, 255, 0.4); }
-        }
-    </style>
+    <!-- Подключаем шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Подключаем общий CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Проект: Карамель</h1>
+    
+    <!-- Заголовок и описание -->
+    <h1 class="main-title">Проект: Карамель</h1>
     <p class="subtitle">Система взломана. Украден важный файл. Выберите отдел для начала расследования.</p>
 
+    <!-- Карточки выбора отдела -->
     <div class="cards-container">
+        
         <a href="police.html" class="card police">
             <span class="icon">🚔</span>
             <h2>ПОЛИЦИЯ</h2>
             <p>Классические методы расследования, работа с уликами и допрос подозреваемых.</p>
         </a>
+        
         <a href="fbi.html" class="card fbi">
             <span class="icon">🕵️</span>
             <h2>ФБР</h2>
             <p>Глубокий анализ данных, дешифровка и работа с секретной информацией.</p>
         </a>
+        
         <a href="cyber.html" class="card cyber">
             <span class="icon">💻</span>
             <h2>КИБЕРБЕЗОПАСНОСТЬ</h2>
             <p>Поиск цифровых следов, работа с нейросетями и защита систем.</p>
         </a>
+        
     </div>
+
 </body>
 </html>
