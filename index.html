@@ -1,158 +1,53 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Проект: Карамель - Кибер-квест</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Courier New', monospace;
-            background-color: #0a0f0a;
-            color: #00ff00;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px #00ff00;
-            text-align: center;
-        }
-        
-        h2 {
-            font-size: 24px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        
-        .departments {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .dept-card {
-            background: rgba(0, 255, 0, 0.05);
-            border: 3px solid #00ff00;
-            border-radius: 15px;
-            padding: 40px;
-            width: 280px;
-            text-align: center;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-        }
-        
-        .dept-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
-        }
-        
-        .dept-card h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        
-        .dept-card p {
-            font-size: 16px;
-            margin-bottom: 30px;
-            line-height: 1.5;
-        }
-        
-        .dept-card a {
-            display: inline-block;
-            background: #00ff00;
-            color: #0a0f0a;
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 18px;
-            transition: all 0.3s;
-        }
-        
-        .dept-card a:hover {
-            background: #00cc00;
-            box-shadow: 0 0 15px #00ff00;
-        }
-        
-        .info {
-            margin-top: 50px;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            max-width: 800px;
-            background: rgba(0, 255, 0, 0.05);
-        }
-        
-        .info h3 {
-            margin-bottom: 15px;
-        }
-        
-        .info ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .info li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
-        }
-        
-        .info li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #00ff00;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кибер-квест «Проект: Карамель» — выбор отдела</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0a0f0a; color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  h1 { font-size: 2.4em; text-shadow: 0 0 20px #00ff00; text-align: center; margin-bottom: 10px; }
+  p.sub { color: #8f8; margin-bottom: 40px; text-align: center; }
+  .cards { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; }
+  a.card {
+    display: block; width: 300px; padding: 30px 20px;
+    border: 2px solid #00ff00; border-radius: 10px;
+    background: #0f1a0f; color: #00ff00; text-decoration: none;
+    text-align: center; transition: .2s; box-shadow: 0 0 20px #00ff00;
+  }
+  a.card:hover { background: #00ff00; color: #0a0f0a; }
+  a.card .icon { font-size: 3em; display: block; margin-bottom: 15px; }
+  a.card h2 { font-size: 1.4em; margin-bottom: 10px; }
+  a.card span { font-size: .9em; opacity: .8; }
+  footer { margin-top: 50px; color: #555; font-size: .8em; }
+</style>
 </head>
 <body>
-    <h1>🔒 ПРОЕКТ: КАРАМЕЛЬ 🔒</h1>
-    <h2>Кибер-квест для юных детективов</h2>
-    
-    <div class="departments">
-        <div class="dept-card">
-            <h3>🚔 ПОЛИЦИЯ</h3>
-            <p>Отдел расследований<br>Шифр Цезаря<br>Сбор улик</p>
-            <a href="police.html">ВОЙТИ</a>
-        </div>
-        
-        <div class="dept-card">
-            <h3>🕵️ ФБР</h3>
-            <p>Федеральное бюро<br>Азбука Морзе<br>Анализ данных</p>
-            <a href="fbi.html">ВОЙТИ</a>
-        </div>
-        
-        <div class="dept-card">
-            <h3>💻 КИБЕРБЕЗОПАСНОСТЬ</h3>
-            <p>Отдел цифровой безопасности<br>Двоичный код<br>Защита данных</p>
-            <a href="cyber.html">ВОЙТИ</a>
-        </div>
-    </div>
-    
-    <div class="info">
-        <h3>📋 ИНСТРУКЦИЯ</h3>
-        <ul>
-            <li>Каждый отдел работает на отдельном ноутбуке</li>
-            <li>Прогресс сохраняется автоматически в браузере</li>
-            <li>Используйте один и тот же браузер на протяжении всего квеста</li>
-            <li>Обменивайтесь кодами между отделами устно</li>
-            <li>Время выполнения: 2 часа 25 минут</li>
-            <li>После 3 неудачных попыток обратитесь к шефу полиции</li>
-        </ul>
-    </div>
+  <h1>🚨 ПРОЕКТ: КАРАМЕЛЬ 🚨</h1>
+  <p class="sub">Выберите отдел для начала работы</p>
+  <div class="cards">
+    <a class="card" href="police.html">
+      <span class="icon">🚔</span>
+      <h2>ПОЛИЦИЯ</h2>
+      <span>Отдел 1 — 5 агентов</span>
+    </a>
+    <a class="card" href="fbi.html">
+      <span class="icon">🕵️</span>
+      <h2>ФБР</h2>
+      <span>Отдел 2 — 4 агента</span>
+    </a>
+    <a class="card" href="cyber.html">
+      <span class="icon">💻</span>
+      <h2>КИБЕРБЕЗОПАСНОСТЬ</h2>
+      <span>Отдел 3 — 4 агента</span>
+    </a>
+  </div>
+  <footer>Прогресс сохраняется в браузере. Проходите квест в одном и том же браузере.</footer>
 </body>
 </html>
