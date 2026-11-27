@@ -1,427 +1,167 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Отдел Кибербезопасности - Проект: Карамель</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Courier New', monospace;
-            background-color: #0a0f0a;
-            color: #00ff00;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        .timer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #8b0000;
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            font-size: 32px;
-            font-weight: bold;
-            box-shadow: 0 0 20px #ff0000;
-            z-index: 1000;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 80px auto 20px;
-            padding: 20px;
-        }
-        
-        h1 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px #00ff00;
-        }
-        
-        .stage {
-            display: none;
-            background: rgba(0, 255, 0, 0.05);
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-        }
-        
-        .stage.active {
-            display: block;
-        }
-        
-        .stage h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #00ff00;
-        }
-        
-        .stage p {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        input[type="text"], input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            background: #0a0f0a;
-            border: 2px solid #00ff00;
-            color: #00ff00;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        
-        input[type="text"]:focus {
-            outline: none;
-            box-shadow: 0 0 10px #00ff00;
-        }
-        
-        button {
-            background: #00ff00;
-            color: #0a0f0a;
-            border: none;
-            padding: 12px 30px;
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s;
-        }
-        
-        button:hover {
-            background: #00cc00;
-            box-shadow: 0 0 15px #00ff00;
-        }
-        
-        .error {
-            color: #ff0000;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        
-        .success {
-            color: #00ff00;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        
-        .info-box {
-            background: rgba(0, 255, 0, 0.1);
-            border-left: 4px solid #00ff00;
-            padding: 15px;
-            margin: 20px 0;
-        }
-        
-        .dossier-btn {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background: #00ff00;
-            color: #0a0f0a;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            z-index: 999;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            overflow-y: auto;
-        }
-        
-        .modal.active {
-            display: block;
-        }
-        
-        .modal-content {
-            background: #0a0f0a;
-            border: 2px solid #00ff00;
-            margin: 50px auto;
-            padding: 30px;
-            max-width: 800px;
-            border-radius: 10px;
-        }
-        
-        .modal-close {
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #00ff00;
-        }
-        
-        .suspect {
-            border: 1px solid #00ff00;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-        }
-        
-        .suspect h3 {
-            color: #00ff00;
-            margin-bottom: 10px;
-        }
-        
-        .binary-code {
-            background: rgba(0, 255, 0, 0.1);
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 14px;
-            word-break: break-all;
-            margin: 15px 0;
-        }
-        
-        .final-message {
-            text-align: center;
-            font-size: 24px;
-            color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
-            padding: 30px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КИБЕРБЕЗОПАСНОСТЬ — Проект: Карамель</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0f0a; color: #00ff00; font-family: 'Courier New', Courier, monospace; min-height: 100vh; padding: 90px 20px 40px; }
+  #timer { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: #400; color: #ff5555; text-align: center; font-size: 1.8em; padding: 8px; font-weight: bold; border-bottom: 2px solid #ff0000; box-shadow: 0 0 20px #ff0000; }
+  #timer.warning { animation: blink 1s infinite; }
+  @keyframes blink { 50% { background: #a00; } }
+  #dossierBtn { position: fixed; top: 60px; right: 20px; z-index: 60; background: #0f1a0f; border: 2px solid #00ff00; color: #00ff00; font-family: inherit; padding: 10px 18px; cursor: pointer; border-radius: 8px; box-shadow: 0 0 20px #00ff00; font-weight: bold; }
+  #dossierBtn:hover { background: #00ff00; color: #0a0f0a; }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 { text-shadow: 0 0 20px #00ff00; margin-bottom: 20px; text-align: center; }
+  .panel { border: 2px solid #00ff00; border-radius: 10px; padding: 25px; margin-bottom: 25px; box-shadow: 0 0 20px #00ff00; background: #0f1a0f; }
+  .panel h2 { margin-bottom: 15px; text-shadow: 0 0 10px #00ff00; }
+  .info { border-left: 4px solid #0ff; padding: 10px 15px; margin: 15px 0; background: #0a1a1a; color: #7ff; }
+  .info strong { color: #0ff; }
+  input[type=text], input[type=file] { width: 100%; padding: 12px; margin: 8px 0; background: #000; color: #00ff00; border: 2px solid #00ff00; border-radius: 6px; font-family: inherit; font-size: 1em; }
+  button.act { padding: 12px 30px; background: #00ff00; color: #0a0f0a; border: none; font-family: inherit; font-size: 1.1em; font-weight: bold; cursor: pointer; border-radius: 6px; margin-top: 10px; }
+  button.act:hover { box-shadow: 0 0 20px #00ff00; }
+  .msg { margin-top: 15px; padding: 12px; border-radius: 6px; font-weight: bold; }
+  .msg.err { background: #400; color: #ff8888; border: 1px solid #f00; }
+  .msg.ok { background: #040; color: #8f8; border: 1px solid #0f0; }
+  .hidden { display: none !important; }
+  .binary { background: #000; padding: 15px; border: 1px solid #00ff00; word-break: break-all; font-size: .85em; line-height: 1.6; color: #0f0; user-select: all; }
+  .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.9); z-index: 100; display: none; padding: 40px 20px; overflow-y: auto; }
+  .modal-bg.show { display: block; }
+  .modal { max-width: 800px; margin: 0 auto; border: 2px solid #00ff00; border-radius: 10px; background: #0f1a0f; padding: 25px; box-shadow: 0 0 20px #00ff00; }
+  .modal h2 { margin-bottom: 15px; }
+  .suspect { border-bottom: 1px solid #0f3; padding: 12px 0; }
+  .suspect h3 { color: #0ff; margin-bottom: 6px; }
+  .suspect p { color: #9f9; font-size: .9em; line-height: 1.5; }
+  .closeBtn { background: #400; color: #f88; border: 1px solid #f00; padding: 8px 16px; cursor: pointer; font-family: inherit; border-radius: 6px; margin-bottom: 15px; }
+  .closeBtn:hover { background: #f00; color: #000; }
+</style>
 </head>
 <body>
-    <div class="timer" id="timer">02:25:00</div>
-    
-    <button class="dossier-btn" onclick="openDossier()">ДОСЬЕ</button>
-    
-    <div class="container">
-        <h1>💻 ОТДЕЛ КИБЕРБЕЗОПАСНОСТИ 💻</h1>
-        
-        <!-- Этап 1 -->
-        <div class="stage active" id="stage1">
-            <h2>Этап 1: Загадка</h2>
-            <div class="info-box">
-                <strong>Сведения от шефа:</strong><br>
-                В мире цифровых технологий важно понимать, как хранится и передаётся информация. Каждое устройство имеет свою функцию.
-            </div>
-            <p>Разгадайте загадку:</p>
-            <p style="font-size: 18px; text-align: center; font-style: italic;">«Я несу информацию, но не говорю.<br>Я храню данные, но не помню.<br>Что я?»</p>
-            <input type="text" id="answer1" placeholder="Введите ответ">
-            <button onclick="checkAnswer1()">ПРОВЕРИТЬ</button>
-            <div id="error1" class="error"></div>
-        </div>
-        
-        <!-- Этап 2 -->
-        <div class="stage" id="stage2">
-            <h2>Этап 2: Код от Полиции</h2>
-            <p>Получен код от отдела Полиции. Введите его для получения доступа к архиву:</p>
-            <input type="text" id="answer2" placeholder="Введите код от Полиции">
-            <button onclick="checkAnswer2()">ПРОВЕРИТЬ</button>
-            <div id="error2" class="error"></div>
-            <div id="success2" class="success"></div>
-        </div>
-        
-        <!-- Этап 3 -->
-        <div class="stage" id="stage3">
-            <h2>Этап 3: Создание улик</h2>
-            <p>Для продолжения расследования необходимо создать изображение.</p>
-            <p>Нарисуйте или создайте любое изображение (можно использовать Paint или онлайн-редактор) и прикрепите его:</p>
-            <input type="file" id="file3" accept="image/*">
-            <button onclick="checkFile3()">ПРИКРЕПИТЬ ФАЙЛ</button>
-            <div id="error3" class="error"></div>
-            <div id="success3" class="success"></div>
-        </div>
-        
-        <!-- Этап 4 -->
-        <div class="stage" id="stage4">
-            <h2>Этап 4: Финальное расследование</h2>
-            <p>Все улики собраны. Кто является преступником?</p>
-            <input type="text" id="answer4" placeholder="Введите имя преступника">
-            <button onclick="checkAnswer4()">ПРОВЕРИТЬ</button>
-            <div id="error4" class="error"></div>
-        </div>
-        
-        <!-- Финал -->
-        <div class="stage" id="stageFinal">
-            <div class="final-message">
-                ✅ РАССЛЕДОВАНИЕ ЗАВЕРШЕНО ✅<br><br>
-                Часть 3 рецепта получена!<br><br>
-                <div class="binary-code">
-                    00101110 00100000 01010110 01100001 01110010 01101001 01110100 01110011 00100000 01100100 01101111 00100000 01111010 01101111 01101100 01101111 01110100 01101001 01110011 01110100 01101111 01100111 01101111 00100000 01100011 01110110 01100101 01110100 01100001 00101110 00100000 01010010 01100001 01111010 01101100 01101001 01110100 01110011 01111001 00100000 01110000 01101111 00100000 01100110 01101111 01110010 01101101 01101111 01100011 01101000 01101011 01100001 01101101 00101110
-                </div>
-                <br>
-                Сохраните этот код и передайте его другим отделам для сборки полного рецепта!
-            </div>
-        </div>
+<div id="timer">--:--:--</div>
+<button id="dossierBtn">📁 ДОСЬЕ</button>
+
+<div class="container">
+  <h1>💻 КИБЕРБЕЗОПАСНОСТЬ</h1>
+  <div id="stages">
+
+    <!-- ЭТАП 1 -->
+    <div class="panel" id="stage1">
+      <h2>Этап 1 — Загадка</h2>
+      <div class="info"><strong>Сведения от шефа:</strong> Двоичный код — это способ кодирования данных с помощью двух символов: 0 и 1. Каждый символ (буква, цифра, знак) кодируется восемью битами. В финале вы будете расшифровывать рецепт именно так.</div>
+      <p>Загадка:</p>
+      <p><em>«Я несу информацию, но не говорю. Я храню данные, но не помню. Что я?»</em></p>
+      <p>Введите ответ:</p>
+      <input type="text" id="s1input" placeholder="Ваш ответ...">
+      <button class="act" onclick="checkS1()">ПРОВЕРИТЬ</button>
+      <div class="msg hidden" id="s1msg"></div>
     </div>
-    
-    <!-- Модальное окно досье -->
-    <div class="modal" id="dossierModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeDossier()">&times;</span>
-            <h2>📁 ДОСЬЕ ПОДОЗРЕВАЕМЫХ</h2>
-            <div id="suspectsList"></div>
-        </div>
+
+    <!-- ЭТАП 2 -->
+    <div class="panel hidden" id="stage2">
+      <h2>Этап 2 — Код от Полиции</h2>
+      <div class="info"><strong>Сведения от шефа:</strong> Для получения части рецепта нужен код от отдела Полиции. Подойдите к ним.</div>
+      <p>Введите код от Полиции:</p>
+      <input type="text" id="s2input" placeholder="Введите код...">
+      <button class="act" onclick="checkS2()">ПРОВЕРИТЬ</button>
+      <div class="msg hidden" id="s2msg"></div>
+      <div class="hidden" id="s2result">
+        <h3>✅ Часть 1 рецепта (двоичный код):</h3>
+        <div class="binary" id="recipePart3">00101110 00100000 01010110 01100001 01110010 01101001 01110100 01110011 00100000 01100100 01101111 00100000 01111010 01101111 01101100 01101111 01110100 01101001 01110011 01110100 01101111 01100111 01101111 00100000 01100011 01110110 01100101 01110100 01100001 00101110 00100000 01010010 01100001 01111010 01101100 01101001 01110100 01110011 01111001 00100000 01110000 01101111 00100000 01100110 01101111 01110010 01101101 01101111 01100011 01101000 01101011 01100001 01101101 00101110</div>
+        <p style="margin-top:12px;color:#8f8;">Сохраните этот код!</p>
+        <button class="act" onclick="nextTo(3)">ДАЛЕЕ →</button>
+      </div>
     </div>
-    
-    <script>
-        // Таймер
-        let timeLeft = 8700;
-        const timerElement = document.getElementById('timer');
-        
-        function updateTimer() {
-            const hours = Math.floor(timeLeft / 3600);
-            const minutes = Math.floor((timeLeft % 3600) / 60);
-            const seconds = timeLeft % 60;
-            
-            timerElement.textContent = 
-                String(hours).padStart(2, '0') + ':' +
-                String(minutes).padStart(2, '0') + ':' +
-                String(seconds).padStart(2, '0');
-            
-            if (timeLeft > 0) {
-                timeLeft--;
-                setTimeout(updateTimer, 1000);
-            } else {
-                timerElement.textContent = 'ВРЕМЯ ВЫШЛО';
-                timerElement.style.background = '#ff0000';
-            }
-        }
-        
-        updateTimer();
-        
-        // Сохранение прогресса
-        let currentStage = parseInt(localStorage.getItem('cyber_stage')) || 1;
-        let attempts = {
-            1: parseInt(localStorage.getItem('cyber_attempts_1')) || 0,
-            2: parseInt(localStorage.getItem('cyber_attempts_2')) || 0,
-            3: parseInt(localStorage.getItem('cyber_attempts_3')) || 0,
-            4: parseInt(localStorage.getItem('cyber_attempts_4')) || 0
-        };
-        
-        function showStage(stageNum) {
-            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
-            document.getElementById('stage' + stageNum).classList.add('active');
-            currentStage = stageNum;
-            localStorage.setItem('cyber_stage', stageNum);
-        }
-        
-        showStage(currentStage);
-        
-        // Проверка ответов
-        function checkAnswer1() {
-            const answer = document.getElementById('answer1').value.trim().toLowerCase();
-            if (answer === 'флешка') {
-                document.getElementById('error1').textContent = '';
-                showStage(2);
-            } else {
-                attempts[1]++;
-                localStorage.setItem('cyber_attempts_1', attempts[1]);
-                if (attempts[1] >= 3) {
-                    document.getElementById('error1').textContent = 'Обратитесь к шефу полиции';
-                } else {
-                    document.getElementById('error1').textContent = 'Неверно! Попробуйте ещё раз.';
-                }
-            }
-        }
-        
-        function checkAnswer2() {
-            const answer = document.getElementById('answer2').value.trim().toLowerCase();
-            if (answer === 'police-99') {
-                document.getElementById('error2').textContent = '';
-                document.getElementById('success2').textContent = '✅ Код принят! Получена Часть 1 рецепта.';
-                setTimeout(() => showStage(3), 2000);
-            } else {
-                attempts[2]++;
-                localStorage.setItem('cyber_attempts_2', attempts[2]);
-                if (attempts[2] >= 3) {
-                    document.getElementById('error2').textContent = 'Обратитесь к шефу полиции';
-                } else {
-                    document.getElementById('error2').textContent = 'Неверный код! Попробуйте ещё раз.';
-                }
-            }
-        }
-        
-        function checkFile3() {
-            const fileInput = document.getElementById('file3');
-            if (fileInput.files.length > 0) {
-                document.getElementById('error3').textContent = '';
-                document.getElementById('success3').textContent = '✅ Файл получен! Получена Часть 2 рецепта.';
-                setTimeout(() => showStage(4), 2000);
-            } else {
-                attempts[3]++;
-                localStorage.setItem('cyber_attempts_3', attempts[3]);
-                if (attempts[3] >= 3) {
-                    document.getElementById('error3').textContent = 'Обратитесь к шефу полиции';
-                } else {
-                    document.getElementById('error3').textContent = 'Прикрепите файл!';
-                }
-            }
-        }
-        
-        function checkAnswer4() {
-            const answer = document.getElementById('answer4').value.trim().toLowerCase();
-            if (answer === 'дана сергеевна' || answer === 'дана' || answer === 'сергеевна') {
-                document.getElementById('error4').textContent = '';
-                showStage('Final');
-            } else {
-                attempts[4]++;
-                localStorage.setItem('cyber_attempts_4', attempts[4]);
-                if (attempts[4] >= 3) {
-                    document.getElementById('error4').textContent = 'Обратитесь к шефу полиции';
-                } else {
-                    document.getElementById('error4').textContent = 'Неверно! Попробуйте ещё раз.';
-                }
-            }
-        }
-        
-        // Досье
-        const suspects = [
-            {name: "Багров Дмитрий Иванович", desc: "Навыки: взлом замков. Алиби: был на уроке математики. Несостыковки: учитель не помнит его присутствия."},
-            {name: "Батенева Милана Сергеевна", desc: "Навыки: кулинария. Алиби: готовила обед в столовой. Несостыковки: повара её не видели."},
-            {name: "Бутырин Степан Ильич", desc: "Навыки: программирование. Алиби: сидел за компьютером. Несостыковки: история браузера очищена."},
-            {name: "Глебова Виктория Сергеевна", desc: "Навыки: рисование. Алиби: была на уроке ИЗО. Несостыковки: мольберт был пуст."},
-            {name: "Дробинина Анна Дмитриевна", desc: "Навыки: чтение. Алиби: читала в библиотеке. Несостыковки: ни одна книга не была взята."},
-            {name: "Зайков Тимофей Денисович", desc: "Навыки: спорт. Алиби: тренировался в зале. Несостыковки: тренер ушёл на перерыв."},
-            {name: "Кордюкова Анастасия Евгеньевна", desc: "Навыки: музыка. Алиби: репетировала в музыкальном классе. Несостыковки: инструмент не тронут."},
-            {name: "Пильникова Александра Владимировна", desc: "Навыки: фотография. Алиби: делала снимки в парке. Несостыковки: карта памяти пуста."},
-            {name: "Соколова Мария Васильевна", desc: "Навыки: танцы. Алиби: занималась в хореографическом зале. Несостыковки: зеркала не запотели."},
-            {name: "Татаринова Вера Вячеславовна", desc: "Навыки: рукоделие. Алиби: шила в мастерской. Несостыковки: нитки не тронуты."},
-            {name: "Ценев Илья Алексеевич", desc: "Навыки: химия. Алиби: ставил опыты в лаборатории. Несостыковки: реактивы не использовались."},
-            {name: "Шаврюкова Яна Александровна", desc: "Навыки: журналистика. Алиби: писала статью. Несостыковки: ноутбук выключен."},
-            {name: "Дана Сергеевна (Шеф)", desc: "Навыки: кибербезопасность. Алиби: проводила брифинг. Несостыковки: на флешке найден её отпечаток."}
-        ];
-        
-        function openDossier() {
-            const modal = document.getElementById('dossierModal');
-            const list = document.getElementById('suspectsList');
-            list.innerHTML = suspects.map(s => `
-                <div class="suspect">
-                    <h3>${s.name}</h3>
-                    <p>${s.desc}</p>
-                </div>
-            `).join('');
-            modal.classList.add('active');
-        }
-        
-        function closeDossier() {
-            document.getElementById('dossierModal').classList.remove('active');
-        }
-    </script>
+
+    <!-- ЭТАП 3 -->
+    <div class="panel hidden" id="stage3">
+      <h2>Этап 3 — Генерация изображения</h2>
+      <div class="info"><strong>Сведения от шефа:</strong> Используйте нейросеть для генерации изображения (png) с фотороботом подозреваемого. Прикрепите файл. Содержимое не проверяется.</div>
+      <p>Сгенерируйте изображение (png) и прикрепите его:</p>
+      <input type="file" id="s3file" accept="image/png,image/*">
+      <button class="act" onclick="checkS3()">ПРИКРЕПИТЬ</button>
+      <div class="msg hidden" id="s3msg"></div>
+      <div class="hidden" id="s3result">
+        <h3>✅ Часть 2 рецепта (двоичный код):</h3>
+        <div class="binary">01010010 01100101 01100011 01100101 01110000 01110100 00111010 00100000 00110001 00100000 01110011 01110100 01100001 01101011 01100001 01101110 00100000 01110011 01100001 01101000 01100001 01110010 01100001</div>
+        <p style="margin-top:12px;color:#8f8;">Сохраните этот код!</p>
+        <button class="act" onclick="nextTo(4)">ДАЛЕЕ →</button>
+      </div>
+    </div>
+
+    <!-- ЭТАП 4 -->
+    <div class="panel hidden" id="stage4">
+      <h2>Этап 4 — Имя преступника</h2>
+      <div class="info"><strong>Сведения от шефа:</strong> Сопоставьте алиби, несостыковки и отпечатки. Кто украл файл с рецептом?</div>
+      <p>Введите имя преступника:</p>
+      <input type="text" id="s4input" placeholder="Имя и фамилия...">
+      <button class="act" onclick="checkS4()">ЗАДЕРЖАТЬ</button>
+      <div class="msg hidden" id="s4msg"></div>
+      <div class="hidden" id="s4result">
+        <h2 style="color:#0f0;">🎉 ДЕЛО РАСКРЫТО!</h2>
+        <p style="margin-top:10px;">Преступник задержан. Передайте часть рецепта и отпечаток шефу полиции для финальной сборки.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО ДОСЬЕ -->
+<div class="modal-bg" id="dossierModal">
+  <div class="modal">
+    <button class="closeBtn" onclick="closeDossier()">✖ ЗАКРЫТЬ</button>
+    <h2>📁 ДОСЬЕ ПОДОЗРЕВАЕМЫХ</h2>
+    <div id="dossierList"></div>
+  </div>
+</div>
+
+<script>
+const KEY = 'cyber_stage';
+const TIMER_KEY = 'quest_timer_start';
+const TOTAL = 8700;
+
+const SUSPECTS = [
+  ["Багров Дмитрий Иванович","Навыки: программирование на Python, взлом Wi-Fi. Алиби: был на тренировке по плаванию. Несостыковка: камера зафиксировала его у кабинета информатики. Мотив: обида за низкую оценку. Признаков причастности к краже файла не найдено."],
+  ["Батенева Милана Сергеевна","Навыки: графический дизайн, работа с нейросетями. Алиби: готовила проект по биологии. Несостыковка: в её браузере найдены запросы о карамели. Мотив: спор с подругой. Отпечатки не совпадают."],
+  ["Бутырин Степан Ильич","Навыки: монтаж видео, работа с mp4. Алиби: был на репетиции школьного театра. Несостыковка: его флешка найдена в кабинете. Мотив: хотел прославиться. Совпадений отпечатков нет."],
+  ["Глебова Виктория Сергеевна","Навыки: шифрование, решение головоломок. Алиби: была в библиотеке. Несостыковка: знает шифр Цезаря лучше всех. Мотив: любопытство. Отпечатки не совпали."],
+  ["Дробинина Анна Дмитриевна","Навыки: работа с двоичным кодом, Excel. Алиби: была на олимпиаде. Несостыковка: в её тетради найден двоичный код. Мотив: неизвестен. Причастность не подтверждена."],
+  ["Зайков Тимофей Денисович","Навыки: кибербезопасность, антивирусы. Алиби: чинил компьютер дома. Несостыковка: знал пароль от сервера. Мотив: шутка. Отпечатки не совпадают."],
+  ["Кордюкова Анастасия Евгеньевна","Навыки: социальная инженерия, переговоры. Алиби: была на конкурсе чтецов. Несостыковка: расспрашивала о рецепте. Мотив: хотела испечь карамель. Не причастна."],
+  ["Пильникова Александра Владимировна","Навыки: фотография, работа с PNG. Алиби: была на фотосессии. Несостыковка: в её галерее фото кабинета. Мотив: неизвестен. Отпечатки не совпали."],
+  ["Соколова Мария Васильевна","Навыки: работа с текстом, DeepSeek. Алиби: писала сочинение. Несостыковка: сгенерировала текст о карамели. Мотив: любовь к сладкому. Не причастна."],
+  ["Татаринова Вера Вячеславовна","Навыки: азбука Морзе, радиосвязь. Алиби: была на кружке радиолюбителей. Несостыковка: передавала сигнал SOS. Мотив: шалость. Отпечатки не совпали."],
+  ["Ценев Илья Алексеевич","Навыки: системное администрирование. Алиби: настраивал сервер. Несостыковка: имел доступ к файлам. Мотив: тестирование системы. Не причастен."],
+  ["Шаврюкова Яна Александровна","Навыки: работа с базами данных. Алиби: была на экскурсии. Несостыковка: искала файл «рецепт». Мотив: неизвестен. Отпечатки не совпали."],
+  ["Дана Сергеевна (Шеф)","Навыки: руководство, знание всех систем, доступ к архивам. Алиби: «была на совещании» — не подтверждено. Несостыковка: отпечаток с флешки совпадает с её отпечатком. Мотив: хотела приготовить карамель по старинному рецепту. ПОДОЗРЕВАЕМЫЙ №1."]
+];
+function renderDossier(){ document.getElementById('dossierList').innerHTML = SUSPECTS.map(s => `<div class="suspect"><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join(''); }
+function openDossier(){ renderDossier(); document.getElementById('dossierModal').classList.add('show'); }
+function closeDossier(){ document.getElementById('dossierModal').classList.remove('show'); }
+document.getElementById('dossierBtn').onclick = openDossier;
+
+function getTimerStart(){ let s = localStorage.getItem(TIMER_KEY); if(!s){ s = Date.now().toString(); localStorage.setItem(TIMER_KEY, s); } return parseInt(s,10); }
+function tick(){ const elapsed = Math.floor((Date.now() - getTimerStart())/1000); const left = TOTAL - elapsed; const el = document.getElementById('timer'); if(left <= 0){ el.textContent = 'ВРЕМЯ ВЫШЛО'; el.classList.add('warning'); return; } const h = String(Math.floor(left/3600)).padStart(2,'0'); const m = String(Math.floor((left%3600)/60)).padStart(2,'0'); const s = String(left%60).padStart(2,'0'); el.textContent = `${h}:${m}:${s}`; if(left < 600) el.classList.add('warning'); }
+setInterval(tick, 1000); tick();
+
+let attempts = {1:0,2:0,3:0,4:0};
+function showStage(n){ for(let i=1;i<=4;i++){ const el = document.getElementById('stage'+i); if(el) el.classList.toggle('hidden', i!==n); } localStorage.setItem(KEY, n); }
+function nextTo(n){ showStage(n); }
+function setMsg(id, text, ok){ const el = document.getElementById(id); el.textContent = text; el.className = 'msg ' + (ok?'ok':'err'); el.classList.remove('hidden'); }
+function failAttempt(stage, msgId){ attempts[stage]++; if(attempts[stage] >= 3){ setMsg(msgId, '❌ Обратитесь к шефу полиции.', false); return true; } return false; }
+
+function checkS1(){ const v = document.getElementById('s1input').value.trim().toLowerCase(); if(v === 'флешка'){ setMsg('s1msg','✅ Верно!', true); setTimeout(()=>nextTo(2), 800); } else { if(!failAttempt(1,'s1msg')) setMsg('s1msg','❌ Неверно. Попробуйте ещё раз.', false); } }
+function checkS2(){ const v = document.getElementById('s2input').value.trim().toLowerCase(); if(v === 'police-99'){ setMsg('s2msg','✅ Код принят!', true); document.getElementById('s2result').classList.remove('hidden'); } else { if(!failAttempt(2,'s2msg')) setMsg('s2msg','❌ Неверный код. Уточните у Полиции.', false); } }
+function checkS3(){ const f = document.getElementById('s3file').files[0]; if(!f){ if(!failAttempt(3,'s3msg')) setMsg('s3msg','❌ Прикрепите файл.', false); return; } setMsg('s3msg','✅ Файл прикреплён!', true); document.getElementById('s3result').classList.remove('hidden'); }
+function checkS4(){ const v = document.getElementById('s4input').value.trim().toLowerCase(); if(v === 'дана сергеевна' || v === 'дана' || v === 'сергеевна'){ setMsg('s4msg','✅ ПРЕСТУПНИК ЗАДЕРЖАН!', true); document.getElementById('s4result').classList.remove('hidden'); } else { if(!failAttempt(4,'s4msg')) setMsg('s4msg','❌ Неверное имя. Проверьте досье.', false); } }
+
+(function restore(){
+  const n = parseInt(localStorage.getItem(KEY) || '1', 10);
+  showStage(n);
+  if(n === 2){ document.getElementById('s2result').classList.remove('hidden'); }
+  if(n === 3){ document.getElementById('s3result').classList.remove('hidden'); }
+  if(n === 4){ document.getElementById('s4result').classList.remove('hidden'); }
+})();
+</script>
 </body>
 </html>
