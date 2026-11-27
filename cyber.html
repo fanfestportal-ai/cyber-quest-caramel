@@ -6,287 +6,247 @@
     <title>КИБЕРБЕЗОПАСНОСТЬ | КИБЕР-КВЕСТ</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .progress-bar { font-family:'Share Tech Mono',monospace; color:var(--accent); font-size:0.95rem; margin-bottom:10px; letter-spacing:1px; }
+        .notes-area { width:100%; box-sizing:border-box; min-height:90px; background:rgba(0,0,0,0.4); border:1px solid var(--border-color); color:#fff; border-radius:12px; padding:12px; font-family:'Inter',sans-serif; font-size:0.95rem; margin-top:10px; }
+        .dossier-photo { width:48px; height:48px; border-radius:50%; background:var(--accent-glow); display:inline-flex; align-items:center; justify-content:center; font-size:1.4rem; margin-right:12px; vertical-align:middle; }
+        .big-puzzle { font-size:1.5rem; color:#ffaa00; font-weight:700; line-height:1.4; letter-spacing:1px; }
+    </style>
 </head>
 <body class="theme-cyber">
     <div class="top-bar">
         <div class="logo">💻 <span>КИБЕРБЕЗОПАСНОСТЬ</span></div>
-        <div class="timer" id="timer">02:25:00</div>
+        <div class="timer" id="timer">02:00:00</div>
         <button class="dossier-btn" onclick="toggleDossier()">🔍 ДОСЬЕ</button>
     </div>
 
     <div class="modal" id="dossierModal">
         <div class="modal-content">
             <button class="close-btn" onclick="toggleDossier()">×</button>
-            <h2 style="margin-top:0; font-size:1.6rem;">БАЗА ДАННЫХ</h2>
+            <h2 style="margin-top:0; font-size:1.6rem;">БАЗА ДАННЫХ ПОДОЗРЕВАЕМЫХ</h2>
             <ul class="dossier-list" id="dossierList"></ul>
         </div>
     </div>
 
-    <div class="quest-container">
-        <!-- ЭТАП 1 -->
-        <div class="stage" id="stage1">
-            <h2>ЭТАП 1: ЦИФРОВАЯ ЗАГАДКА</h2>
-            <p>При сканировании системы был обнаружен странный код-загадка. Разгадайте её: <br><br><strong style="font-size:1.2rem; color:var(--accent);">«Я несу информацию, но не говорю. Я храню данные, но не помню. Что я?»</strong></p>
-            <div class="info-block">
-                <strong>Сведения от шефа:</strong> Это устройство используется для хранения и переноса данных. Оно подключается к компьютеру через порт USB и имеет небольшие размеры.
-            </div>
-            <input type="text" id="input1" placeholder="Введите ответ">
-            <button class="btn" onclick="check1()">ПРОВЕРИТЬ</button>
-            <p class="msg" id="msg1"></p>
-            <p class="hint" id="hint1"></p>
-            
-            <div id="successBlock1" class="hidden" style="margin-top:20px;">
-                <p style="color:#00ff00; font-weight:bold; font-size: 1.2rem;">✅ Доступ разрешён!</p>
-                <div class="info-block" style="margin-top: 15px; border-left-color: #ffaa00;">
-                    <strong>Важно! Передайте этот код отделу Полиции:</strong><br>
-                    <span style="font-size: 1.5rem; font-family: 'Share Tech Mono', monospace; color: #fff; letter-spacing: 2px;">POLICE-99</span>
-                </div>
-                <button class="btn" onclick="nextStage1()">ПЕРЕЙТИ К ЭТАПУ 2</button>
-            </div>
-
-            <div id="passBlock1" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
-                <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
-                <input type="password" id="pass1" placeholder="Пароль шефа">
-                <button class="btn btn-warning" onclick="checkPass1()">ВВЕСТИ ПАРОЛЬ</button>
-                <p class="msg" id="passMsg1"></p>
-                <div id="answer1" class="hidden" style="margin-top:15px;">
-                    <p style="color:#00ff00; font-weight:bold;">Правильный ответ: ФЛЕШКА</p>
-                    <div class="info-block" style="margin-top: 15px; border-left-color: #ffaa00;">
-                        <strong>Важно! Передайте этот код отделу Полиции:</strong><br>
-                        <span style="font-size: 1.5rem; font-family: 'Share Tech Mono', monospace; color: #fff; letter-spacing: 2px;">POLICE-99</span>
-                    </div>
-                    <button class="btn" onclick="nextStage1()">ПРОДОЛЖИТЬ</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ЭТАП 2 -->
-        <div class="stage hidden" id="stage2">
-            <h2>ЭТАП 2: ПЕРЕКРЁСТНЫЙ КОД</h2>
-            <p>Свяжитесь с отделом Полиции. Они получили код, который необходим для доступа к части файла. Введите этот код:</p>
-            <input type="text" id="input2" placeholder="Введите код от Полиции">
-            <button class="btn" onclick="check2()">ПОЛУЧИТЬ ДАННЫЕ</button>
-            <p class="msg" id="msg2"></p>
-            <p class="hint" id="hint2"></p>
-            
-            <div id="passBlock2" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
-                <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
-                <input type="password" id="pass2" placeholder="Пароль шефа">
-                <button class="btn btn-warning" onclick="checkPass2()">ВВЕСТИ ПАРОЛЬ</button>
-                <p class="msg" id="passMsg2"></p>
-                <div id="answer2" class="hidden" style="margin-top:15px;">
-                    <p style="color:#00ff00; font-weight:bold;">Правильный ответ: POLICE-99</p>
-                    <button class="btn" onclick="nextStage2()">ПРОДОЛЖИТЬ</button>
-                </div>
-            </div>
-            
-            <div id="part1Block" class="hidden">
-                <p style="margin-top:20px;">Доступ получен. Извлечена <strong>Часть 1 рецепта</strong>:</p>
-                <div class="terminal" id="part1Text">00101110 00100000 01010110 01100001 01110010 01101001 01110100 01110011 00100000 01100100 01101111 00100000 01111010 01101111 01101100 01101111 01110100 01101001 01110011 01110100 01101111 01100111 01101111 00100000 01100011 01110110 01100101 01110100 01100001 00101110 00100000 01010010 01100001 01111010 01101100 01101001 01110100 01110011 01111001 00100000 01110000 01101111 00100000 01100110 01101111 01110010 01101101 01101111 01100011 01101000 01101011 01100001 01101101 00101110</div>
-                <p style="font-size:0.9rem; color:var(--text-muted);">Сохраните этот код! Он понадобится в финале.</p>
-                <button class="btn" onclick="nextStage2b()">ПЕРЕЙТИ К ЭТАПУ 3</button>
-            </div>
-        </div>
-
-        <!-- ЭТАП 3 -->
-        <div class="stage hidden" id="stage3">
-            <h2>ЭТАП 3: НЕЙРОСЕТИ В ДЕЛЕ</h2>
-            <p>Для получения второй части файла необходимо восстановить фоторобот. Используйте нейросеть для генерации изображений и создайте портрет: <em>«Мужчина 30 лет, хакер, в капюшоне, за компьютером»</em>. Прикрепите файл:</p>
-            <input type="file" id="file3" accept="image/*">
-            <button class="btn" onclick="check3()">ОТПРАВИТЬ ФАЙЛ</button>
-            <p class="msg" id="msg3"></p>
-            <p class="hint" id="hint3"></p>
-            
-            <div id="part2Block" class="hidden">
-                <p style="margin-top:20px;">Фоторобот принят. Извлечена <strong>Часть 2 рецепта</strong>:</p>
-                <div class="terminal">01010010 01100101 01100011 01100101 01110000 01110100 00111010 00100000 00110001 00100000 01110011 01110100 01100001 01101011 01100001 01101110 00100000 01110011 01100001 01101000 01100001 01110010 01100001</div>
-                <p style="font-size:0.9rem; color:var(--text-muted);">Сохраните этот код! Он понадобится в финале.</p>
-                <button class="btn" onclick="nextStage3()">ПЕРЕЙТИ К ФИНАЛУ</button>
-            </div>
-        </div>
-
-        <!-- ЭТАП 4 -->
-        <div class="stage hidden" id="stage4">
-            <h2>ФИНАЛ: ОБЛИЧЕНИЕ</h2>
-            <p>Вы собрали все части рецепта. Соедините их в один двоичный код и расшифруйте через онлайн-конвертер (binary to text).</p>
-            <div class="info-block">
-                <strong>Сведения от шефа:</strong> Дактилоскопия — метод идентификации по отпечаткам пальцев. Сравнение проводится наложением прозрачного листа с отпечатком на экран. Проверьте отпечаток, найденный на флешке, и сравните с базой данных.
-            </div>
-            <p>Кто же преступник?</p>
-            <input type="text" id="input4" placeholder="Введите имя преступника">
-            <button class="btn" onclick="check4()">ОБЛИЧИТЬ</button>
-            <p class="msg" id="msg4"></p>
-            <p class="hint" id="hint4"></p>
-            
-            <div id="passBlock4" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
-                <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
-                <input type="password" id="pass4" placeholder="Пароль шефа">
-                <button class="btn btn-warning" onclick="checkPass4()">ВВЕСТИ ПАРОЛЬ</button>
-                <p class="msg" id="passMsg4"></p>
-                <div id="answer4" class="hidden" style="margin-top:15px;">
-                    <p style="color:#00ff00; font-weight:bold;">Правильный ответ: Дана Сергеевна</p>
-                    <button class="btn" onclick="nextStage4()">ЗАВЕРШИТЬ</button>
-                </div>
-            </div>
-            
-            <div id="finalBlock" class="final-block hidden">
-                <h2>🎉 ДЕЛО ЗАКРЫТО!</h2>
-                <p style="font-size:1.2rem; color:#fff;">Преступник — <strong>Дана Сергеевна</strong>. Мотив: приготовить карамель для детей. Заберите рецепт и Chupa Chups!</p>
-            </div>
-        </div>
-    </div>
+    <div class="quest-container" id="questContainer"></div>
 
     <script>
+        // ===== ДОСЬЕ (фото-заглушки) =====
         const dossierData = [
-            { name: "Багров Дмитрий Иванович", text: "Начинал как сисадмин школьного кабинета. Разрабатывал скрипты для автоматизации домашки. Завербован за нестандартное мышление. Склонен к самоуверенности. Алиби: был в столовой, но время не подтверждено." },
-            { name: "Батенева Милана Сергеевна", text: "Победитель олимпиад по математике. Решает сложные логические задачи, но не терпит спешки. Пришла по рекомендации преподавателя. Решала задачи в кабинете одна. Обладает феноменальной памятью на числа." },
-            { name: "Бутырин Степан Ильич", text: "Увлекается криптографией и старинными шифрами. Ранее контактировал с хакером, но прекратил. Помог раскрыть серию взломов. Спокойный и методичный. Алиби: гулял в рекреации, но камеры зафиксировали в другом крыле." },
-            { name: "Глебова Виктория Сергеевна", text: "Специалист по восстановлению удалённых файлов. Восстановила данные школьного сервера. Пунктуальна и обязательна. В день инцидента была у медсестры, что не соответствует алиби. Навыки позволяют скрыть следы доступа." },
-            { name: "Дробинина Анна Дмитриевна", text: "Автор программы для выявления лжи. Тихая, но замечает мельчайшие несоответствия. Разоблачила одноклассника в краже. Алиби о столовой опровергается камерами. Часто отлучается на переменах." },
-            { name: "Зайков Тимофей Денисович", text: "Мастер спорта по киберспорту. Реакция как у робота. Ранее взломал школьную сеть ради шутки, но исправился. Энергичный и азартный. Утверждает, что играл в телефоне, но активность в сети требует проверки." },
-            { name: "Кордюкова Анастасия Евгеньевна", text: "Специалист по социальной инженерии. Выведывает пароли через доверительные беседы. Разоблачила школьного вора. Ценится за подход к людям. Алиби: болтала с другом, но личность друга не установлена." },
-            { name: "Пильникова Александра Владимировна", text: "Разбирается в аппаратном обеспечении. Собрала компьютер из подручных средств. Починила сервер учителя. Практична и надёжна. Алиби: чинила принтер, но журнал событий не содержит записей о неисправностях." },
-            { name: "Соколова Мария Васильевна", text: "Увлекается рисованием и визуальными ребусами. Замечает детали на фото. Помогла раскрыть подделку документов. Алиби: рисовала на доске, но следов работы нет. Может создавать ложные улики." },
-            { name: "Татаринова Вера Вячеславовна", text: "Эксперт по нейросетям. Генерирует текст, изображения и голос. Создала ИИ-помощника для библиотеки. Мечтает об универсальном ИИ. Алиби: генерировала картинки, но история запросов очищена. Может создавать фальшивые доказательства." },
-            { name: "Ценев Илья Алексеевич", text: "Бывший геймер, знает все читы и уязвимости. Предотвратил кибератаку на школу. Параноидален, но внимателен. Алиби: проверял антивирус, но логи показывают, что он не запускался. Паранойя может быть попыткой замести следы." },
-            { name: "Шаврюкова Яна Александровна", text: "Увлекается историей и архивами. Находит информацию после удаления следов. Восстановила историю школьного проекта. Любит загадки. Алиби: искала в архиве, но архив был закрыт. Может создавать ложный след." },
-            { name: "Дана Сергеевна (Шеф)", text: "Руководитель отдела. Знает всё обо всех. В последнее время ведёт себя странно: отлучается и что-то печатает. Нет подтверждённого алиби — была на совещании, но никто не видел. На флешке найден её отпечаток. Мотив: приготовить карамель для детей." }
+            { name: "Багров Дмитрий Иванович", emoji: "🧑‍💻", text: "Начинал как сисадмин школьного кабинета. Разрабатывал скрипты для автоматизации домашки. Завербован за нестандартное мышление. Алиби: был в столовой, но время не подтверждено." },
+            { name: "Батенева Милана Сергеевна", emoji: "👩‍🎓", text: "Победитель олимпиад по математике. Решает сложные логические задачи. Решала задачи в кабинете одна. Алиби: кабинет, одна." },
+            { name: "Бутырин Степан Ильич", emoji: "🧑‍🔬", text: "Увлекается криптографией и старинными шифрами. Помог раскрыть серию взломов. Алиби: гулял в рекреации, но камеры зафиксировали в другом крыле." },
+            { name: "Глебова Виктория Сергеевна", emoji: "👩‍💼", text: "Специалист по восстановлению удалённых файлов. В день инцидента была у медсестры, что не соответствует алиби. Навыки позволяют скрыть следы доступа." },
+            { name: "Дробинина Анна Дмитриевна", emoji: "👩‍🏫", text: "Автор программы для выявления лжи. Алиби о столовой опровергается камерами. Часто отлучается на переменах." },
+            { name: "Зайков Тимофей Денисович", emoji: "🧑‍🎮", text: "Мастер спорта по киберспорту. Ранее взломал школьную сеть ради шутки. Утверждает, что играл в телефоне, но активность в сети требует проверки." },
+            { name: "Кордюкова Анастасия Евгеньевна", emoji: "👩‍💻", text: "Специалист по социальной инженерии. Выведывает пароли через доверительные беседы. Алиби: болтала с другом, но личность друга не установлена." },
+            { name: "Пильникова Александра Владимировна", emoji: "👩‍🔧", text: "Разбирается в аппаратном обеспечении. Починила сервер учителя. Алиби: чинила принтер, но журнал событий не содержит записей о неисправностях." },
+            { name: "Соколова Мария Васильевна", emoji: "👩‍🎨", text: "Увлекается рисованием и визуальными ребусами. Помогла раскрыть подделку документов. Алиби: рисовала на доске, но следов работы нет." },
+            { name: "Татаринова Вера Вячеславовна", emoji: "🤖", text: "Эксперт по нейросетям. Создала ИИ-помощника для библиотеки. Алиби: генерировала картинки, но история запросов очищена." },
+            { name: "Ценев Илья Алексеевич", emoji: "🧑‍💻", text: "Бывший геймер, знает все читы. Предотвратил кибератаку на школу. Алиби: проверял антивирус, но логи показывают, что он не запускался." },
+            { name: "Шаврюкова Яна Александровна", emoji: "👩‍📚", text: "Увлекается историей и архивами. Восстановила историю школьного проекта. Алиби: искала в архиве, но архив был закрыт." },
+            { name: "Дана Сергеевна (Шеф)", emoji: "🕵️‍♀️", text: "Руководитель отдела. Знает всё обо всех. Нет подтверждённого алиби — была на совещании, но никто не видел. На флешке найден её отпечаток. Мотив: приготовить карамель для детей." }
         ];
-
         const list = document.getElementById('dossierList');
         dossierData.forEach(item => {
             const li = document.createElement('li');
             li.className = 'dossier-item';
-            li.innerHTML = `<span class="dossier-name">${item.name}</span><span class="dossier-text">${item.text}</span>`;
+            li.innerHTML = `<span class="dossier-photo">${item.emoji}</span><span class="dossier-name">${item.name}</span><span class="dossier-text">${item.text}</span>`;
             list.appendChild(li);
         });
-
         function toggleDossier() { document.getElementById('dossierModal').classList.toggle('active'); }
 
-        let timeLeft = 8700;
-        if (localStorage.getItem('cyber_timer')) timeLeft = parseInt(localStorage.getItem('cyber_timer'));
+        // ===== ТАЙМЕР =====
+        let timeLeft = 7200;
+        if (localStorage.getItem('cyber_timer_v2')) timeLeft = parseInt(localStorage.getItem('cyber_timer_v2'));
         function updateTimer() {
             if (timeLeft <= 0) { document.getElementById('timer').innerText = '00:00:00'; return; }
             let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
-            document.getElementById('timer').innerText = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-            timeLeft--; localStorage.setItem('cyber_timer', timeLeft);
+            document.getElementById('timer').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            timeLeft--; localStorage.setItem('cyber_timer_v2', timeLeft);
         }
         setInterval(updateTimer, 1000); updateTimer();
 
-        let state = { stage: 1, attempts: 0 };
-        if (localStorage.getItem('cyber_state')) state = JSON.parse(localStorage.getItem('cyber_state'));
-        function saveState() { localStorage.setItem('cyber_state', JSON.stringify(state)); }
-        function showStage(num) {
-            for (let i = 1; i <= 4; i++) document.getElementById(`stage${i}`).classList.add('hidden');
-            document.getElementById(`stage${num}`).classList.remove('hidden');
-        }
-        if (state.stage) showStage(Math.floor(state.stage));
+        // ===== 20 ЭТАПОВ =====
+        const stages = [
+            { title:"ЭТАП 1: ПРОТОКОЛ",
+              desc:"При сканировании системы обнаружен фрагмент описания сетевого протокола:<br><br><em>«Обеспечивает надёжную доставку данных, управление потоком и повторную передачу потерянных пакетов. Работает поверх IP».</em><br><br>Введите название протокола (аббревиатура, латиницей):",
+              info:"Это один из основных протоколов транспортного уровня модели OSI.", answer:"tcp", hint:"TCP (Transmission Control Protocol).", type:"text" },
+            { title:"ЭТАП 2: ПЕРЕКРЁСТНЫЙ КОД",
+              desc:"Свяжитесь с отделом ФБР. Они получили код для доступа к части файла. Введите его:",
+              info:"Код состоит из названия отдела и числа.", answer:"cyber-55", hint:"CYBER-55", type:"text" },
+            { title:"ЭТАП 3: БИОМЕТРИЧЕСКАЯ ЗАЩИТА",
+              desc:"Система требует текстового подтверждения от начальника отдела: опишите ситуацию доступа по пунктам (кто, когда, зачем, с какого устройства). Введите описание в поле:",
+              info:"Подумайте, как получить официальное описание, не составляя его вручную. Подойдёт любой текст-подтверждение (не короче 20 символов).", answer:"__text__", hint:"Сгенерируйте официальный текст описания через инструмент генерации текста.", type:"text" },
+            { title:"ЭТАП 4: ПОИСК УЛИКИ",
+              desc:"Система выдала координаты: «Ищите там, где растут цветы». Найдите в кабинете записку и введите код с неё:",
+              info:"Посмотрите на окна.", answer:"цветок123", hint:"Проверьте цветочные горшки на подоконнике.", type:"text" },
+            { title:"ЭТАП 5: ДВОИЧНЫЙ КОД",
+              desc:"Переведите двоичный код в текст:<br><div class='terminal'>01000010 01001001 01001110 01000001 01010010 01011001</div>",
+              info:"Онлайн-конвертер binary to text.", answer:"binary", hint:"Binary (латиницей).", type:"text" },
+            { title:"ЭТАП 6: РАСШИФРОВКА ХЕША",
+              desc:"Хеш пароля: <span class='terminal' style='display:inline-block;padding:6px 10px;'>e10adc3949ba59abbe56e057f20f883e</span><br>Найдите в интернете, что это за пароль:",
+              info:"Это самый популярный числовой пароль.", answer:"123456", hint:"123456", type:"text" },
+            { title:"ЭТАП 7: АНАЛИЗ ДОСЬЕ",
+              desc:"Изучите досье. У кого из подозреваемых нет подтверждённого алиби? Введите имя:",
+              info:"Совещание — не алиби, если никто не видел.", answer:"дана", hint:"Дана Сергеевна", type:"text" },
+            { title:"ЭТАП 8: ЭКСПЕРТИЗА",
+              desc:"Найдите в интернете, что такое «криптография», и введите ключевое слово (единственное число):",
+              info:"Это наука о шифровании информации.", answer:"шифр", hint:"Шифр", type:"text" },
+            { title:"ЭТАП 9: QR-КОД",
+              desc:"На застеклённой рекреации висит QR-код. Отсканируйте его и введите секретное слово:",
+              info:"Используйте телефон или онлайн-сканер.", answer:"доступ", hint:"Доступ", type:"text" },
+            { title:"ЭТАП 10: ЛОГИКА",
+              desc:"Если P = Q, Q > R, а R > S, то кто самый маленький?",
+              info:"Простая логика.", answer:"s", hint:"S", type:"text" },
+            { title:"ЭТАП 11: МАТЕМАТИКА",
+              desc:"Сколько будет 25% от 80?",
+              info:"25% — это 25/100.", answer:"20", hint:"Двадцать", type:"text" },
+            { title:"ЭТАП 12: ШИФР АТБАШ",
+              desc:"Расшифруйте слово (шифр Атбаш): <strong style='font-size:1.4rem;color:var(--accent);'>ТУМГЯ</strong>",
+              info:"Атбаш — зеркальный алфавит (А=Я, Б=Ю).", answer:"агент", hint:"Агент", type:"text" },
+            { title:"ЭТАП 13: ГЕОГРАФИЯ",
+              desc:"В каком году был основан город Казань?",
+              info:"Это один из древнейших городов России, дата условная — 1005 год.", answer:"1005", hint:"1005", type:"text" },
+            { title:"ЭТАП 14: ИСТОРИЯ",
+              desc:"В каком году был изобретён первый компьютерный вирус (термин «вирус»)?",
+              info:"Это связано с работой Фреда Коэна.", answer:"1983", hint:"1983", type:"text" },
+            { title:"ЭТАП 15: ВНИМАНИЕ",
+              desc:"Сколько раз буква «И» встречается в слове «ИНФОРМАТИКА»?",
+              info:"Просто посчитайте.", answer:"2", hint:"Два", type:"text" },
+            { title:"ЭТАП 16: ЛОГИКА",
+              desc:"У бабушки 6 внуков. У каждого есть сестра. Сколько всего внуков?",
+              info:"Сестра одна на всех.", answer:"7", hint:"Семь", type:"text" },
+            { title:"ЭТАП 17: ПОИСК УЛИК",
+              desc:"Ищите на двухметровом столе папку с надписью «СЕКРЕТНО». Введите код с папки:",
+              info:"Код написан маркером.", answer:"папка999", hint:"Папка999", type:"text" },
+            { title:"ЭТАП 18: АНАЛИЗ",
+              desc:"Сравните отпечаток на флешке с базой данных. Чей это отпечаток? Введите имя:",
+              info:"У кого нет алиби?", answer:"дана", hint:"Дана", type:"text" },
+            { title:"ЭТАП 19: СБОРКА ПАЗЛА",
+              desc:"<div class='big-puzzle'>ОДНА ЧАСТЬ ПАЗЛА ПОЛУЧЕНА.<br>ВЗЛОМ ОПРАВДАН.<br>ЭТО ПОНАДОБИТСЯ ПОЗЖЕ.</div><br>Ваш фрагмент двоичного кода:<div class='terminal' style='color:#fff;font-size:1.05rem;'>00101110 00100000 01010110 01100001 01110010 01101001 01110100 01110011 00100000 01100100 01101111 00100000 01111010 01101111 01101100 01101111 01110100 01101001 01110011 01110100 01101111 01100111 01101111 00100000 01100011 01110110 01100101 01110100 01100001 00101110 00100000 01010010 01100001 01111010 01101100 01101001 01110100 01110011 01111001 00100000 01110000 01101111 00100000 01100110 01101111 01110010 01101101 01101111 01100011 01101000 01101011 01100001 01101101 00101110</div>",
+              info:"Сохраните этот код. Он понадобится в финале.", answer:"готово", hint:"Введите «готово», чтобы продолжить.", type:"text" },
+            { title:"ЭТАП 20: ФИНАЛ",
+              desc:"Вы собрали все улики. Кто преступник?",
+              info:"Проверьте алиби ещё раз.", answer:"дана сергеевна", hint:"Дана Сергеевна", type:"text" }
+        ];
 
-        function getHint(stageNum) {
-            const hints = { 1: "Подсказка: Это небольшое устройство для хранения данных.", 2: "Подсказка: Код начинается с названия отдела.", 4: "Подсказка: У кого нет подтверждённого алиби?" };
-            return hints[stageNum] || "Обратитесь к шефу.";
+        // ===== СОСТОЯНИЕ =====
+        let state = { currentStage: 0, attempts: 0, notes: "" };
+        if (localStorage.getItem('cyber_state_v2')) state = JSON.parse(localStorage.getItem('cyber_state_v2'));
+        function saveState() { localStorage.setItem('cyber_state_v2', JSON.stringify(state)); }
+
+        const container = document.getElementById('questContainer');
+
+        function renderStage() {
+            if (state.currentStage >= stages.length) {
+                container.innerHTML = `<div class="final-block"><h2>🎉 ДЕЛО ЗАКРЫТО!</h2><p style="font-size:1.2rem;color:#fff;">Преступник — <strong>Дана Сергеевна</strong>. Мотив: приготовить карамель для детей. Заберите рецепт и Chupa Chups!</p></div>`;
+                return;
+            }
+            const s = stages[state.currentStage];
+            let inputHtml = '';
+            if (s.type === 'file') {
+                inputHtml = `<input type="file" id="fileInput" accept="${s.accept||''}"><button class="btn" onclick="checkAnswer()">ОТПРАВИТЬ</button>`;
+            } else if (s.answer === '__text__') {
+                inputHtml = `<textarea class="notes-area" id="textInput" placeholder="Введите описание ситуации (не короче 20 символов)..." style="min-height:120px;"></textarea><button class="btn" onclick="checkAnswer()">ОТПРАВИТЬ</button>`;
+            } else {
+                inputHtml = `<input type="text" id="textInput" placeholder="Введите ответ"><button class="btn" onclick="checkAnswer()">ПРОВЕРИТЬ</button>`;
+            }
+            container.innerHTML = `
+                <div class="progress-bar">ЭТАП ${state.currentStage + 1} ИЗ ${stages.length}</div>
+                <div class="stage">
+                    <h2>${s.title}</h2>
+                    <p>${s.desc}</p>
+                    <div class="info-block"><strong>Сведения от шефа:</strong> ${s.info}</div>
+                    ${inputHtml}
+                    <p class="msg" id="errorMsg"></p>
+                    <p class="hint" id="hintMsg"></p>
+                    <div id="passBlock" class="hidden" style="margin-top:20px;border-top:1px solid var(--border-color);padding-top:20px;">
+                        <p style="color:#ffbb33;font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
+                        <input type="password" id="passInput" placeholder="Пароль шефа">
+                        <button class="btn btn-warning" onclick="checkPass()">ВВЕСТИ ПАРОЛЬ</button>
+                        <p class="msg" id="passMsg"></p>
+                        <div id="answerBlock" class="hidden" style="margin-top:15px;">
+                            <p style="color:#00ff00;font-weight:bold;">Правильный ответ: ${s.answer === '__text__' ? 'любой осмысленный текст' : s.answer}</p>
+                            <button class="btn" onclick="nextStage()">ПРОДОЛЖИТЬ</button>
+                        </div>
+                    </div>
+                    <div style="margin-top:25px;border-top:1px solid var(--border-color);padding-top:15px;">
+                        <strong style="color:var(--accent);font-size:0.95rem;">📝 Лист заметок</strong>
+                        <textarea class="notes-area" id="notesArea" placeholder="Записывайте, про кого какая информация уже есть...">${state.notes||''}</textarea>
+                        <button class="btn" style="padding:10px 20px;font-size:0.9rem;margin-top:8px;" onclick="saveNotes()">СОХРАНИТЬ ЗАМЕТКИ</button>
+                    </div>
+                </div>`;
+            if (state.attempts >= 10) {
+                document.getElementById('passBlock').classList.remove('hidden');
+                document.getElementById('errorMsg').innerText = "Лимит попыток исчерпан.";
+            } else if (state.attempts >= 6) {
+                document.getElementById('hintMsg').innerText = "Подсказка: " + s.hint;
+            }
         }
 
-        function handlePass(stageNum) {
-            let pass = document.getElementById(`pass${stageNum}`).value.trim();
+        function saveNotes() {
+            const el = document.getElementById('notesArea');
+            if (el) { state.notes = el.value; saveState(); }
+        }
+
+        function checkAnswer() {
+            const s = stages[state.currentStage];
+            let val = '';
+            if (s.type === 'file') {
+                const f = document.getElementById('fileInput');
+                if (f.files.length > 0) val = 'file';
+            } else {
+                const el = document.getElementById('textInput');
+                val = (el.value || '').trim().toLowerCase().replace(/\s+/g,' ');
+            }
+            let ok = false;
+            if (s.answer === '__text__') {
+                ok = val.length >= 20;
+            } else if (s.type === 'file') {
+                ok = (s.answer === 'file' && val === 'file');
+            } else {
+                ok = (val === s.answer.toLowerCase());
+            }
+            if (ok) {
+                saveNotes();
+                nextStage();
+            } else {
+                state.attempts++; saveState();
+                const errorMsg = document.getElementById('errorMsg');
+                const hintMsg = document.getElementById('hintMsg');
+                const passBlock = document.getElementById('passBlock');
+                if (state.attempts >= 10) {
+                    errorMsg.innerText = "Лимит попыток исчерпан.";
+                    passBlock.classList.remove('hidden');
+                } else if (state.attempts >= 6) {
+                    errorMsg.innerText = "Неверно.";
+                    hintMsg.innerText = "Подсказка: " + s.hint;
+                } else {
+                    errorMsg.innerText = "Неверно! Попробуйте ещё раз.";
+                }
+            }
+        }
+
+        function checkPass() {
+            const pass = document.getElementById('passInput').value.trim();
             if (pass === '1357') {
-                document.getElementById(`passMsg${stageNum}`).innerText = "";
-                document.getElementById(`answer${stageNum}`).classList.remove('hidden');
-                document.getElementById(`passBlock${stageNum}`).classList.add('hidden');
+                document.getElementById('passMsg').innerText = "";
+                document.getElementById('answerBlock').classList.remove('hidden');
+                document.getElementById('passBlock').classList.add('hidden');
             } else {
-                document.getElementById(`passMsg${stageNum}`).innerText = "Доступ запрещён. Неверный пароль.";
+                document.getElementById('passMsg').innerText = "Доступ запрещён. Неверный пароль.";
             }
         }
 
-        // ЭТАП 1
-        function check1() { 
-            let val = document.getElementById('input1').value.trim().toLowerCase();
-            if (val === 'флешка') {
-                document.getElementById('msg1').innerText = "";
-                document.getElementById('hint1').innerText = "";
-                document.getElementById('successBlock1').classList.remove('hidden');
-                document.getElementById('input1').disabled = true;
-            } else {
-                state.attempts++; saveState();
-                let msgEl = document.getElementById('msg1');
-                let hintEl = document.getElementById('hint1');
-                let passBlock = document.getElementById('passBlock1');
-                if (state.attempts >= 10) {
-                    msgEl.innerText = "Лимит попыток исчерпан."; hintEl.innerText = ""; passBlock.classList.remove('hidden');
-                } else if (state.attempts >= 6) {
-                    msgEl.innerText = "Неверно."; hintEl.innerText = getHint(1);
-                } else {
-                    msgEl.innerText = "Неверно! Попробуйте ещё раз."; hintEl.innerText = "";
-                }
-            }
+        function nextStage() {
+            state.currentStage++;
+            state.attempts = 0;
+            saveState();
+            renderStage();
         }
-        function checkPass1() { handlePass(1); }
-        function nextStage1() { state.stage = 2; state.attempts = 0; saveState(); showStage(2); }
 
-        // ЭТАП 2: ИСПРАВЛЕНО (ждет POLICE-99)
-        function check2() { 
-            let val = document.getElementById('input2').value.trim().toLowerCase();
-            if (val === 'police-99') {
-                state.stage = 2.5; saveState(); document.getElementById('part1Block').classList.remove('hidden'); document.getElementById('msg2').innerText = "";
-            } else {
-                state.attempts++; saveState();
-                let msgEl = document.getElementById('msg2');
-                let hintEl = document.getElementById('hint2');
-                let passBlock = document.getElementById('passBlock2');
-                if (state.attempts >= 10) {
-                    msgEl.innerText = "Лимит попыток исчерпан."; hintEl.innerText = ""; passBlock.classList.remove('hidden');
-                } else if (state.attempts >= 6) {
-                    msgEl.innerText = "Неверно."; hintEl.innerText = getHint(2);
-                } else {
-                    msgEl.innerText = "Неверно! Попробуйте ещё раз."; hintEl.innerText = "";
-                }
-            }
-        }
-        function checkPass2() { handlePass(2); }
-        function nextStage2() { document.getElementById('part1Block').classList.remove('hidden'); document.getElementById('passBlock2').classList.add('hidden'); document.getElementById('msg2').innerText = ""; state.stage = 2.5; saveState(); }
-        function nextStage2b() { state.stage = 3; state.attempts = 0; saveState(); showStage(3); }
-
-        // ЭТАП 3
-        function check3() {
-            let file = document.getElementById('file3').files[0];
-            if (file) { document.getElementById('msg3').innerText = ""; document.getElementById('part2Block').classList.remove('hidden'); state.stage = 3.5; saveState(); } 
-            else document.getElementById('msg3').innerText = "Прикрепите файл!";
-        }
-        function nextStage3() { state.stage = 4; state.attempts = 0; saveState(); showStage(4); }
-
-        // ЭТАП 4
-        function check4() { 
-            let val = document.getElementById('input4').value.trim().toLowerCase();
-            if (val === 'дана сергеевна' || val === 'дана' || val === 'сергеевна') {
-                document.getElementById('finalBlock').classList.remove('hidden');
-                document.getElementById('msg4').innerText = "";
-                document.getElementById('input4').disabled = true;
-                state.stage = 6; saveState();
-            } else {
-                state.attempts++; saveState();
-                let msgEl = document.getElementById('msg4');
-                let hintEl = document.getElementById('hint4');
-                let passBlock = document.getElementById('passBlock4');
-                if (state.attempts >= 10) {
-                    msgEl.innerText = "Лимит попыток исчерпан."; hintEl.innerText = ""; passBlock.classList.remove('hidden');
-                } else if (state.attempts >= 6) {
-                    msgEl.innerText = "Неверно."; hintEl.innerText = getHint(4);
-                } else {
-                    msgEl.innerText = "Неверно! Попробуйте ещё раз."; hintEl.innerText = "";
-                }
-            }
-        }
-        function checkPass4() { handlePass(4); }
-        function nextStage4() { document.getElementById('finalBlock').classList.remove('hidden'); document.getElementById('passBlock4').classList.add('hidden'); document.getElementById('msg4').innerText = ""; state.stage = 6; saveState(); }
-
-        if (state.stage === 2.5) { showStage(2); document.getElementById('part1Block').classList.remove('hidden'); } 
-        else if (state.stage === 3.5) { showStage(3); document.getElementById('part2Block').classList.remove('hidden'); } 
-        else if (state.stage === 6) { showStage(4); document.getElementById('finalBlock').classList.remove('hidden'); }
-        
-        if (state.stage > 1) {
-            document.getElementById('successBlock1').classList.remove('hidden');
-            document.getElementById('input1').disabled = true;
-        }
+        renderStage();
     </script>
 </body>
 </html>
