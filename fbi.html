@@ -35,6 +35,17 @@
             <p class="msg" id="msg1"></p>
             <p class="hint" id="hint1"></p>
             
+            <!-- Блок с правильным ответом (виден сразу после правильного ввода) -->
+            <div id="successBlock1" class="hidden" style="margin-top:20px;">
+                <p style="color:#00ff00; font-weight:bold; font-size: 1.2rem;">✅ Доступ разрешён!</p>
+                <div class="info-block" style="margin-top: 15px; border-left-color: #ffaa00;">
+                    <strong>Важно! Передайте этот код отделу Кибербезопасности:</strong><br>
+                    <span style="font-size: 1.5rem; font-family: 'Share Tech Mono', monospace; color: #fff; letter-spacing: 2px;">CYBER-55</span>
+                </div>
+                <button class="btn" onclick="nextStage1()">ПЕРЕЙТИ К ЭТАПУ 2</button>
+            </div>
+
+            <!-- Блок для пароля шефа (если 10 попыток) -->
             <div id="passBlock1" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
                 <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
                 <input type="password" id="pass1" placeholder="Пароль шефа">
@@ -208,7 +219,28 @@
             }
         }
 
-        function check1() { handleCheck(1, 'маршал', 2); }
+        // ЭТАП 1: ИСПРАВЛЕНА ЛОГИКА
+        function check1() { 
+            let val = document.getElementById('input1').value.trim().toLowerCase();
+            if (val === 'маршал') {
+                document.getElementById('msg1').innerText = "";
+                document.getElementById('hint1').innerText = "";
+                document.getElementById('successBlock1').classList.remove('hidden');
+                document.getElementById('input1').disabled = true;
+            } else {
+                state.attempts++; saveState();
+                let msgEl = document.getElementById('msg1');
+                let hintEl = document.getElementById('hint1');
+                let passBlock = document.getElementById('passBlock1');
+                if (state.attempts >= 10) {
+                    msgEl.innerText = "Лимит попыток исчерпан."; hintEl.innerText = ""; passBlock.classList.remove('hidden');
+                } else if (state.attempts >= 6) {
+                    msgEl.innerText = "Неверно."; hintEl.innerText = getHint(1);
+                } else {
+                    msgEl.innerText = "Неверно! Попробуйте ещё раз."; hintEl.innerText = "";
+                }
+            }
+        }
         function checkPass1() { handlePass(1); }
         function nextStage1() { state.stage = 2; state.attempts = 0; saveState(); showStage(2); }
 
@@ -216,7 +248,19 @@
             let val = document.getElementById('input2').value.trim();
             if (val === 'CYBER-55') {
                 state.stage = 2.5; saveState(); document.getElementById('part1Block').classList.remove('hidden'); document.getElementById('msg2').innerText = "";
-            } else handleCheck(2, 'CYBER-55', 2); 
+            } else {
+                state.attempts++; saveState();
+                let msgEl = document.getElementById('msg2');
+                let hintEl = document.getElementById('hint2');
+                let passBlock = document.getElementById('passBlock2');
+                if (state.attempts >= 10) {
+                    msgEl.innerText = "Лимит попыток исчерпан."; hintEl.innerText = ""; passBlock.classList.remove('hidden');
+                } else if (state.attempts >= 6) {
+                    msgEl.innerText = "Неверно."; hintEl.innerText = getHint(2);
+                } else {
+                    msgEl.innerText = "Неверно! Попробуйте ещё раз."; hintEl.innerText = "";
+                }
+            }
         }
         function checkPass2() { handlePass(2); }
         function nextStage2() { document.getElementById('part1Block').classList.remove('hidden'); document.getElementById('passBlock2').classList.add('hidden'); document.getElementById('msg2').innerText = ""; state.stage = 2.5; saveState(); }
@@ -229,13 +273,39 @@
         }
         function nextStage3() { state.stage = 4; state.attempts = 0; saveState(); showStage(4); }
 
-        function check4() { handleCheck(4, 'дана сергеевна', 5); }
+        function check4() { 
+            let val = document.getElementById('input4').value.trim().toLowerCase();
+            if (val === 'дана сергеевна' || val === 'дана' || val === 'сергеевна') {
+                document.getElementById('finalBlock').classList.remove('hidden');
+                document.getElementById('msg4').innerText = "";
+                document.getElementById('input4').disabled = true;
+                state.stage = 6; saveState();
+            } else {
+                state.attempts++; saveState();
+                let msgEl = document.getElementById('msg4');
+                let hintEl = document.getElementById('hint4');
+                let passBlock = document.getElementById('passBlock4');
+                if (state.attempts >= 10) {
+                    msgEl.innerText = "Лимит попыток исчерпан."; hintEl.innerText = ""; passBlock.classList.remove('hidden');
+                } else if (state.attempts >= 6) {
+                    msgEl.innerText = "Неверно."; hintEl.innerText = getHint(4);
+                } else {
+                    msgEl.innerText = "Неверно! Попробуйте ещё раз."; hintEl.innerText = "";
+                }
+            }
+        }
         function checkPass4() { handlePass(4); }
         function nextStage4() { document.getElementById('finalBlock').classList.remove('hidden'); document.getElementById('passBlock4').classList.add('hidden'); document.getElementById('msg4').innerText = ""; state.stage = 6; saveState(); }
 
         if (state.stage === 2.5) { showStage(2); document.getElementById('part1Block').classList.remove('hidden'); } 
         else if (state.stage === 3.5) { showStage(3); document.getElementById('part2Block').classList.remove('hidden'); } 
         else if (state.stage === 6) { showStage(4); document.getElementById('finalBlock').classList.remove('hidden'); }
+        
+        // Восстановление успешного первого этапа
+        if (state.stage > 1) {
+            document.getElementById('successBlock1').classList.remove('hidden');
+            document.getElementById('input1').disabled = true;
+        }
     </script>
 </body>
 </html>
