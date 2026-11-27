@@ -9,7 +9,7 @@
     <!-- Подключаем общий CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body> <!-- По умолчанию стоит бирюзовая тема Полиции -->
+<body> <!-- По умолчанию бирюзовая тема Полиции -->
     
     <div class="top-bar">
         <div class="logo">🚔 <span>ПОЛИЦИЯ</span></div>
@@ -17,6 +17,7 @@
         <button class="dossier-btn" onclick="toggleDossier()">🔍 ДОСЬЕ</button>
     </div>
 
+    <!-- Модальное окно досье -->
     <div class="modal" id="dossierModal">
         <div class="modal-content">
             <button class="close-btn" onclick="toggleDossier()">×</button>
@@ -25,6 +26,7 @@
         </div>
     </div>
 
+    <!-- Контейнер квеста -->
     <div class="quest-container">
         <!-- ЭТАП 1 -->
         <div class="stage" id="stage1">
@@ -37,6 +39,7 @@
             <button class="btn" onclick="check1()">ПРОВЕРИТЬ</button>
             <p class="msg" id="msg1"></p>
             <p class="hint" id="hint1"></p>
+            
             <div id="passBlock1" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
                 <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
                 <input type="password" id="pass1" placeholder="Пароль шефа">
@@ -57,6 +60,7 @@
             <button class="btn" onclick="check2()">ПОЛУЧИТЬ ДАННЫЕ</button>
             <p class="msg" id="msg2"></p>
             <p class="hint" id="hint2"></p>
+            
             <div id="passBlock2" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
                 <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
                 <input type="password" id="pass2" placeholder="Пароль шефа">
@@ -67,6 +71,7 @@
                     <button class="btn" onclick="nextStage2()">ПРОДОЛЖИТЬ</button>
                 </div>
             </div>
+            
             <div id="part1Block" class="hidden">
                 <p style="margin-top:20px;">Доступ получен. Извлечена <strong>Часть 1 рецепта</strong>:</p>
                 <div class="terminal" id="part1Text">01010010 01100101 01100011 01100101 01110000 01110100 00111010 00100000 00110001 00100000 01110011 01110100 01100001 01101011 01100001 01101110 00100000 01110011 01100001 01101000 01100001 01110010 01100001</div>
@@ -83,6 +88,7 @@
             <button class="btn" onclick="check3()">ОТПРАВИТЬ ФАЙЛ</button>
             <p class="msg" id="msg3"></p>
             <p class="hint" id="hint3"></p>
+            
             <div id="part2Block" class="hidden">
                 <p style="margin-top:20px;">Биометрия пройдена. Извлечена <strong>Часть 2 рецепта</strong>:</p>
                 <div class="terminal">00101100 00100000 00110001 00110000 00110000 00100000 01100111 00100000 01101101 01100001 01110011 01101100 01100001 00101100 00100000 00110010 00100000 01110011 01110100 00101110 00100000 01101100 00101110 00100000 01110110 01101111 01100100 01111001</div>
@@ -103,6 +109,7 @@
             <button class="btn" onclick="check4()">ОБЛИЧИТЬ</button>
             <p class="msg" id="msg4"></p>
             <p class="hint" id="hint4"></p>
+            
             <div id="passBlock4" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
                 <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
                 <input type="password" id="pass4" placeholder="Пароль шефа">
@@ -113,6 +120,7 @@
                     <button class="btn" onclick="nextStage4()">ЗАВЕРШИТЬ</button>
                 </div>
             </div>
+            
             <div id="finalBlock" class="final-block hidden">
                 <h2>🎉 ДЕЛО ЗАКРЫТО!</h2>
                 <p style="font-size:1.2rem; color:#fff;">Преступник — <strong>Дана Сергеевна</strong>. Мотив: приготовить карамель для детей. Заберите рецепт и Chupa Chups!</p>
@@ -121,7 +129,7 @@
     </div>
 
     <script>
-        // Данные досье (одинаковые для всех)
+        // Общая база данных подозреваемых
         const dossierData = [
             { name: "Багров Дмитрий Иванович", text: "Начинал как сисадмин школьного кабинета. Разрабатывал скрипты для автоматизации домашки. Завербован за нестандартное мышление. Склонен к самоуверенности. Алиби: был в столовой, но время не подтверждено." },
             { name: "Батенева Милана Сергеевна", text: "Победитель олимпиад по математике. Решает сложные логические задачи, но не терпит спешки. Пришла по рекомендации преподавателя. Решала задачи в кабинете одна. Обладает феноменальной памятью на числа." },
@@ -138,6 +146,7 @@
             { name: "Дана Сергеевна (Шеф)", text: "Руководитель отдела. Знает всё обо всех. В последнее время ведёт себя странно: отлучается и что-то печатает. Нет подтверждённого алиби — была на совещании, но никто не видел. На флешке найден её отпечаток. Мотив: приготовить карамель для детей." }
         ];
 
+        // Рендер досье
         const list = document.getElementById('dossierList');
         dossierData.forEach(item => {
             const li = document.createElement('li');
@@ -148,7 +157,8 @@
 
         function toggleDossier() { document.getElementById('dossierModal').classList.toggle('active'); }
 
-        let timeLeft = 8700;
+        // Таймер
+        let timeLeft = 8700; // 2ч 25м
         if (localStorage.getItem('police_timer')) timeLeft = parseInt(localStorage.getItem('police_timer'));
         function updateTimer() {
             if (timeLeft <= 0) { document.getElementById('timer').innerText = '00:00:00'; return; }
@@ -158,6 +168,7 @@
         }
         setInterval(updateTimer, 1000); updateTimer();
 
+        // Состояние
         let state = { stage: 1, attempts: 0 };
         if (localStorage.getItem('police_state')) state = JSON.parse(localStorage.getItem('police_state'));
         function saveState() { localStorage.setItem('police_state', JSON.stringify(state)); }
@@ -167,6 +178,7 @@
         }
         if (state.stage) showStage(Math.floor(state.stage));
 
+        // Логика ответов
         function handleCheck(stageNum, correctAnswer, nextStageNum) {
             let val = document.getElementById(`input${stageNum}`).value.trim().toLowerCase();
             if (val === correctAnswer.toLowerCase()) {
@@ -202,6 +214,7 @@
             }
         }
 
+        // Навигация по этапам
         function check1() { handleCheck(1, '734', 2); }
         function checkPass1() { handlePass(1); }
         function nextStage1() { state.stage = 2; state.attempts = 0; saveState(); showStage(2); }
@@ -227,6 +240,7 @@
         function checkPass4() { handlePass(4); }
         function nextStage4() { document.getElementById('finalBlock').classList.remove('hidden'); document.getElementById('passBlock4').classList.add('hidden'); document.getElementById('msg4').innerText = ""; state.stage = 6; saveState(); }
 
+        // Восстановление промежуточных окон
         if (state.stage === 2.5) { showStage(2); document.getElementById('part1Block').classList.remove('hidden'); } 
         else if (state.stage === 3.5) { showStage(3); document.getElementById('part2Block').classList.remove('hidden'); } 
         else if (state.stage === 6) { showStage(4); document.getElementById('finalBlock').classList.remove('hidden'); }
