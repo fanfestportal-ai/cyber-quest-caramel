@@ -130,4 +130,112 @@
     <script>
         const dossierData = [
             { name: "Багров Дмитрий Иванович", text: "Начинал как сисадмин школьного кабинета. Разрабатывал скрипты для автоматизации домашки. Завербован за нестандартное мышление. Склонен к самоуверенности. Алиби: был в столовой, но время не подтверждено." },
-            { name: "Батенева Милана Сергеевна", text: "Победитель олимпиад по математике. Решает сложные логические
+            { name: "Батенева Милана Сергеевна", text: "Победитель олимпиад по математике. Решает сложные логические задачи, но не терпит спешки. Пришла по рекомендации преподавателя. Решала задачи в кабинете одна. Обладает феноменальной памятью на числа." },
+            { name: "Бутырин Степан Ильич", text: "Увлекается криптографией и старинными шифрами. Ранее контактировал с хакером, но прекратил. Помог раскрыть серию взломов. Спокойный и методичный. Алиби: гулял в рекреации, но камеры зафиксировали в другом крыле." },
+            { name: "Глебова Виктория Сергеевна", text: "Специалист по восстановлению удалённых файлов. Восстановила данные школьного сервера. Пунктуальна и обязательна. В день инцидента была у медсестры, что не соответствует алиби. Навыки позволяют скрыть следы доступа." },
+            { name: "Дробинина Анна Дмитриевна", text: "Автор программы для выявления лжи. Тихая, но замечает мельчайшие несоответствия. Разоблачила одноклассника в краже. Алиби о столовой опровергается камерами. Часто отлучается на переменах." },
+            { name: "Зайков Тимофей Денисович", text: "Мастер спорта по киберспорту. Реакция как у робота. Ранее взломал школьную сеть ради шутки, но исправился. Энергичный и азартный. Утверждает, что играл в телефоне, но активность в сети требует проверки." },
+            { name: "Кордюкова Анастасия Евгеньевна", text: "Специалист по социальной инженерии. Выведывает пароли через доверительные беседы. Разоблачила школьного вора. Ценится за подход к людям. Алиби: болтала с другом, но личность друга не установлена." },
+            { name: "Пильникова Александра Владимировна", text: "Разбирается в аппаратном обеспечении. Собрала компьютер из подручных средств. Починила сервер учителя. Практична и надёжна. Алиби: чинила принтер, но журнал событий не содержит записей о неисправностях." },
+            { name: "Соколова Мария Васильевна", text: "Увлекается рисованием и визуальными ребусами. Замечает детали на фото. Помогла раскрыть подделку документов. Алиби: рисовала на доске, но следов работы нет. Может создавать ложные улики." },
+            { name: "Татаринова Вера Вячеславовна", text: "Эксперт по нейросетям. Генерирует текст, изображения и голос. Создала ИИ-помощника для библиотеки. Мечтает об универсальном ИИ. Алиби: генерировала картинки, но история запросов очищена. Может создавать фальшивые доказательства." },
+            { name: "Ценев Илья Алексеевич", text: "Бывший геймер, знает все читы и уязвимости. Предотвратил кибератаку на школу. Параноидален, но внимателен. Алиби: проверял антивирус, но логи показывают, что он не запускался. Паранойя может быть попыткой замести следы." },
+            { name: "Шаврюкова Яна Александровна", text: "Увлекается историей и архивами. Находит информацию после удаления следов. Восстановила историю школьного проекта. Любит загадки. Алиби: искала в архиве, но архив был закрыт. Может создавать ложный след." },
+            { name: "Дана Сергеевна (Шеф)", text: "Руководитель отдела. Знает всё обо всех. В последнее время ведёт себя странно: отлучается и что-то печатает. Нет подтверждённого алиби — была на совещании, но никто не видел. На флешке найден её отпечаток. Мотив: приготовить карамель для детей." }
+        ];
+
+        const list = document.getElementById('dossierList');
+        dossierData.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'dossier-item';
+            li.innerHTML = `<span class="dossier-name">${item.name}</span><span class="dossier-text">${item.text}</span>`;
+            list.appendChild(li);
+        });
+
+        function toggleDossier() { document.getElementById('dossierModal').classList.toggle('active'); }
+
+        let timeLeft = 8700;
+        if (localStorage.getItem('fbi_timer')) timeLeft = parseInt(localStorage.getItem('fbi_timer'));
+        function updateTimer() {
+            if (timeLeft <= 0) { document.getElementById('timer').innerText = '00:00:00'; return; }
+            let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
+            document.getElementById('timer').innerText = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            timeLeft--; localStorage.setItem('fbi_timer', timeLeft);
+        }
+        setInterval(updateTimer, 1000); updateTimer();
+
+        let state = { stage: 1, attempts: 0 };
+        if (localStorage.getItem('fbi_state')) state = JSON.parse(localStorage.getItem('fbi_state'));
+        function saveState() { localStorage.setItem('fbi_state', JSON.stringify(state)); }
+        function showStage(num) {
+            for (let i = 1; i <= 4; i++) document.getElementById(`stage${i}`).classList.add('hidden');
+            document.getElementById(`stage${num}`).classList.remove('hidden');
+        }
+        if (state.stage) showStage(Math.floor(state.stage));
+
+        function handleCheck(stageNum, correctAnswer, nextStageNum) {
+            let val = document.getElementById(`input${stageNum}`).value.trim().toLowerCase();
+            if (val === correctAnswer.toLowerCase()) {
+                state.stage = nextStageNum; state.attempts = 0; saveState(); showStage(nextStageNum);
+            } else {
+                state.attempts++; saveState();
+                let msgEl = document.getElementById(`msg${stageNum}`);
+                let hintEl = document.getElementById(`hint${stageNum}`);
+                let passBlock = document.getElementById(`passBlock${stageNum}`);
+                if (state.attempts >= 10) {
+                    msgEl.innerText = "Лимит попыток исчерпан."; hintEl.innerText = ""; passBlock.classList.remove('hidden');
+                } else if (state.attempts >= 6) {
+                    msgEl.innerText = "Неверно."; hintEl.innerText = getHint(stageNum);
+                } else {
+                    msgEl.innerText = "Неверно! Попробуйте ещё раз."; hintEl.innerText = "";
+                }
+            }
+        }
+
+        function getHint(stageNum) {
+            const hints = { 1: "Подсказка: Найдите таблицу Морзе в интернете.", 2: "Подсказка: Код начинается с названия отдела.", 4: "Подсказка: У кого нет подтверждённого алиби?" };
+            return hints[stageNum] || "Обратитесь к шефу.";
+        }
+
+        function handlePass(stageNum) {
+            let pass = document.getElementById(`pass${stageNum}`).value.trim();
+            if (pass === '1357') {
+                document.getElementById(`passMsg${stageNum}`).innerText = "";
+                document.getElementById(`answer${stageNum}`).classList.remove('hidden');
+                document.getElementById(`passBlock${stageNum}`).classList.add('hidden');
+            } else {
+                document.getElementById(`passMsg${stageNum}`).innerText = "Доступ запрещён. Неверный пароль.";
+            }
+        }
+
+        function check1() { handleCheck(1, 'маршал', 2); }
+        function checkPass1() { handlePass(1); }
+        function nextStage1() { state.stage = 2; state.attempts = 0; saveState(); showStage(2); }
+
+        function check2() { 
+            let val = document.getElementById('input2').value.trim();
+            if (val === 'CYBER-55') {
+                state.stage = 2.5; saveState(); document.getElementById('part1Block').classList.remove('hidden'); document.getElementById('msg2').innerText = "";
+            } else handleCheck(2, 'CYBER-55', 2); 
+        }
+        function checkPass2() { handlePass(2); }
+        function nextStage2() { document.getElementById('part1Block').classList.remove('hidden'); document.getElementById('passBlock2').classList.add('hidden'); document.getElementById('msg2').innerText = ""; state.stage = 2.5; saveState(); }
+        function nextStage2b() { state.stage = 3; state.attempts = 0; saveState(); showStage(3); }
+
+        function check3() {
+            let file = document.getElementById('file3').files[0];
+            if (file) { document.getElementById('msg3').innerText = ""; document.getElementById('part2Block').classList.remove('hidden'); state.stage = 3.5; saveState(); } 
+            else document.getElementById('msg3').innerText = "Прикрепите файл!";
+        }
+        function nextStage3() { state.stage = 4; state.attempts = 0; saveState(); showStage(4); }
+
+        function check4() { handleCheck(4, 'дана сергеевна', 5); }
+        function checkPass4() { handlePass(4); }
+        function nextStage4() { document.getElementById('finalBlock').classList.remove('hidden'); document.getElementById('passBlock4').classList.add('hidden'); document.getElementById('msg4').innerText = ""; state.stage = 6; saveState(); }
+
+        if (state.stage === 2.5) { showStage(2); document.getElementById('part1Block').classList.remove('hidden'); } 
+        else if (state.stage === 3.5) { showStage(3); document.getElementById('part2Block').classList.remove('hidden'); } 
+        else if (state.stage === 6) { showStage(4); document.getElementById('finalBlock').classList.remove('hidden'); }
+    </script>
+</body>
+</html>
