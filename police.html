@@ -6,12 +6,6 @@
     <title>ПОЛИЦИЯ | КИБЕР-КВЕСТ</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .progress-bar { font-family:'Share Tech Mono',monospace; color:var(--accent); font-size:0.95rem; margin-bottom:10px; letter-spacing:1px; }
-        .notes-area { width:100%; box-sizing:border-box; min-height:90px; background:rgba(0,0,0,0.4); border:1px solid var(--border-color); color:#fff; border-radius:12px; padding:12px; font-family:'Inter',sans-serif; font-size:0.95rem; margin-top:10px; }
-        .dossier-photo { width:48px; height:48px; border-radius:50%; background:var(--accent-glow); display:inline-flex; align-items:center; justify-content:center; font-size:1.4rem; margin-right:12px; vertical-align:middle; }
-        .big-puzzle { font-size:1.5rem; color:#ffaa00; font-weight:700; line-height:1.4; letter-spacing:1px; }
-    </style>
 </head>
 <body>
     <div class="top-bar">
@@ -31,7 +25,6 @@
     <div class="quest-container" id="questContainer"></div>
 
     <script>
-        // ===== ДОСЬЕ (фото-заглушки; замените emoji на <img src="..."> при наличии фото) =====
         const dossierData = [
             { name: "Багров Дмитрий Иванович", emoji: "🧑‍💻", text: "Начинал как сисадмин школьного кабинета. Разрабатывал скрипты для автоматизации домашки. Завербован за нестандартное мышление. Алиби: был в столовой, но время не подтверждено." },
             { name: "Батенева Милана Сергеевна", emoji: "👩‍🎓", text: "Победитель олимпиад по математике. Решает сложные логические задачи. Решала задачи в кабинете одна. Алиби: кабинет, одна." },
@@ -56,7 +49,6 @@
         });
         function toggleDossier() { document.getElementById('dossierModal').classList.toggle('active'); }
 
-        // ===== ТАЙМЕР (2:00:00) =====
         let timeLeft = 7200;
         if (localStorage.getItem('police_timer_v2')) timeLeft = parseInt(localStorage.getItem('police_timer_v2'));
         function updateTimer() {
@@ -67,12 +59,11 @@
         }
         setInterval(updateTimer, 1000); updateTimer();
 
-        // ===== 20 ЭТАПОВ =====
         const stages = [
             { title:"ЭТАП 1: ШИФР ЦЕЗАРЯ",
-              desc:"Этот текст зашифрован шифром Цезаря со сдвигом на 2 буквы вперёд. Расшифруйте его (введите слитно без пробелов):<br><br><strong style='font-size:1.5rem;color:var(--accent);'>«ЩЙЦТ ЩЖЙВТВ»</strong>",
-              info:"Шифр Цезаря — сдвиг букв по алфавиту. При сдвиге вперёд на 1: А→Б, Б→В. Чтобы расшифровать — сдвигаем назад.",
-              answer:"шифрцезаря", hint:"Сдвиньте каждую букву на 2 позиции НАЗАД (Щ→Ш, Й→И…).", type:"text" },
+              desc:"Этот текст зашифрован шифром Цезаря со сдвигом на 2 буквы вперёд. Расшифруйте его (введите слитно без пробелов):<br><br><strong style='font-size:1.5rem;color:var(--accent);'>«ЕРТ»</strong>",
+              info:"Шифр Цезаря — сдвиг букв по алфавиту. При сдвиге вперёд на 2: А→В, Б→Г, В→Д. Чтобы расшифровать — сдвигаем назад на 2.",
+              answer:"вор", hint:"Сдвиньте каждую букву на 2 позиции НАЗАД (Е→В, Р→О, Т→Р).", type:"text" },
             { title:"ЭТАП 2: ПЕРЕКРЁСТНЫЙ КОД",
               desc:"Свяжитесь с отделом ФБР. Они получили код для доступа к части файла. Введите его:",
               info:"Код состоит из названия отдела и года.", answer:"fbi-2026", hint:"FBI-2026", type:"text" },
@@ -82,22 +73,22 @@
               answer:"file", hint:"Используйте инструмент, который «оживляет» фото.", type:"file", accept:"video/*" },
             { title:"ЭТАП 4: ПОИСК УЛИКИ",
               desc:"Система выдала координаты: «Ищите там, где растут цветы». Найдите в кабинете записку и введите код с неё:",
-              info:"Посмотрите на окна.", answer:"цветок123", hint:"Проверьте цветочные горшки на подоконнике.", type:"text" },
+              info:"Посмотрите на окна.", answer:"невашотдел", hint:"Проверьте цветочные горшки на подоконнике.", type:"text" },
             { title:"ЭТАП 5: ДВОИЧНЫЙ КОД",
-              desc:"Переведите двоичный код в текст:<br><div class='terminal'>01001000 01100101 01101100 01110000</div>",
-              info:"Воспользуйтесь онлайн-конвертером binary to text.", answer:"help", hint:"Help (латиницей).", type:"text" },
+              desc:"Переведите двоичный код в текст:<br><div class='terminal'>01110000 01110010 01100101 01110011 01110100 01110101 01110000 01101110 01101001 01101011 01110010 01111001 01100001 01100100 01101111 01101101</div>",
+              info:"Воспользуйтесь онлайн-конвертером binary to text.", answer:"преступникрядом", hint:"Преступник рядом (латиницей при переводе, ответ по-русски).", type:"text" },
             { title:"ЭТАП 6: РАСШИФРОВКА ХЕША",
               desc:"Перед вами хеш пароля: <span class='terminal' style='display:inline-block;padding:6px 10px;'>5f4dcc3b5aa765d61d8327deb882cf99</span><br>Найдите в интернете, что это за пароль:",
               info:"Это самый популярный пароль в мире.", answer:"password", hint:"Password", type:"text" },
             { title:"ЭТАП 7: АНАЛИЗ ДОСЬЕ",
-              desc:"Изучите досье (кнопка сверху). У кого из подозреваемых нет подтверждённого алиби? Введите имя:",
-              info:"Совещание — не алиби, если никто не видел.", answer:"дана", hint:"Дана Сергеевна", type:"text" },
+              desc:"Изучите досье (кнопка сверху). У скольких человек НЕТ подтверждённого алиби? Введите число:",
+              info:"Совещание — не алиби, если никто не видел. Считайте внимательно.", answer:"13", hint:"Посчитайте всех, чьё алиби не подтверждено.", type:"text" },
             { title:"ЭТАП 8: ЭКСПЕРТИЗА",
-              desc:"Найдите в интернете, что такое «дактилоскопия», и введите ключевое слово (единственное число):",
+              desc:"Найдите в интернете, что такое «дактилоскопия», и введите ключевое слово (единственное число):<br><br><em>Важно: обратите внимание на основной экран кабинета.</em>",
               info:"Это наука об отпечатках пальцев.", answer:"отпечаток", hint:"Отпечаток", type:"text" },
             { title:"ЭТАП 9: QR-КОД",
               desc:"На столе шефа лежит QR-код. Отсканируйте его и введите секретное слово:",
-              info:"Используйте телефон или онлайн-сканер.", answer:"секрет", hint:"Секрет", type:"text" },
+              info:"Используйте телефон или онлайн-сканер.", answer:"виновна", hint:"Виновна", type:"text" },
             { title:"ЭТАП 10: ЛОГИКА",
               desc:"Если A > B, B > C, а C > D, то кто самый маленький?",
               info:"Простая математика.", answer:"d", hint:"D", type:"text" },
@@ -105,8 +96,8 @@
               desc:"Сколько будет 15% от 200?",
               info:"15% — это 15/100.", answer:"30", hint:"Тридцать", type:"text" },
             { title:"ЭТАП 12: ШИФР АТБАШ",
-              desc:"Расшифруйте слово (шифр Атбаш): <strong style='font-size:1.4rem;color:var(--accent);'>ЯТУМГ</strong>",
-              info:"Атбаш — зеркальный алфавит (А=Я, Б=Ю).", answer:"агент", hint:"Агент", type:"text" },
+              desc:"Расшифруйте слово (шифр Атбаш): <strong style='font-size:1.4rem;color:var(--accent);'>ЭРЧТРШСРЬУЯЭСДХ</strong>",
+              info:"Атбаш — зеркальный алфавит (А=Я, Б=Ю, В=Э).", answer:"возможноглавный", hint:"Возможно главный", type:"text" },
             { title:"ЭТАП 13: ГЕОГРАФИЯ",
               desc:"В каком году был основан город Санкт-Петербург?",
               info:"Это было при Петре I.", answer:"1703", hint:"1703", type:"text" },
@@ -121,19 +112,18 @@
               info:"Сестра одна на всех.", answer:"6", hint:"Шесть", type:"text" },
             { title:"ЭТАП 17: ПОИСК УЛИК",
               desc:"Ищите под зелёным столом папку с надписью «СЕКРЕТНО». Введите код с папки:",
-              info:"Код написан маркером.", answer:"папка777", hint:"Папка777", type:"text" },
+              info:"Код написан маркером.", answer:"сверхсекретныеделашефа", hint:"Сверхсекретные дела шефа", type:"text" },
             { title:"ЭТАП 18: АНАЛИЗ",
-              desc:"Сравните отпечаток на флешке с базой данных. Чей это отпечаток? Введите имя:",
+              desc:"Сравните отпечаток на флешке (она сбоку) с базой данных. Чей это отпечаток? Введите имя:",
               info:"У кого нет алиби?", answer:"дана", hint:"Дана", type:"text" },
             { title:"ЭТАП 19: СБОРКА ПАЗЛА",
               desc:"<div class='big-puzzle'>ОДНА ЧАСТЬ ПАЗЛА ПОЛУЧЕНА.<br>ВЗЛОМ ОПРАВДАН.<br>ЭТО ПОНАДОБИТСЯ ПОЗЖЕ.</div><br>Ваш фрагмент двоичного кода:<div class='terminal' style='color:#fff;font-size:1.05rem;'>01010010 01100101 01100011 01100101 01110000 01110100 00111010 00100000 00110001 00100000 01110011 01110100 01100001 01101011 01100001 01101110 00100000 01110011 01100001 01101000 01100001 01110010 01100001</div>",
-              info:"Сохраните этот код. Он понадобится в финале.", answer:"готово", hint:"Введите «готово», чтобы продолжить.", type:"text" },
+              info:"Сохраните этот код. Он понадобится в финале. Введите «!!!», чтобы продолжить.", answer:"!!!", hint:"Введите три восклицательных знака: !!!", type:"text" },
             { title:"ЭТАП 20: ФИНАЛ",
               desc:"Вы собрали все улики. Кто преступник?",
               info:"Проверьте алиби ещё раз.", answer:"дана сергеевна", hint:"Дана Сергеевна", type:"text" }
         ];
 
-        // ===== СОСТОЯНИЕ =====
         let state = { currentStage: 0, attempts: 0, notes: "" };
         if (localStorage.getItem('police_state_v2')) state = JSON.parse(localStorage.getItem('police_state_v2'));
         function saveState() { localStorage.setItem('police_state_v2', JSON.stringify(state)); }
