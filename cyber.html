@@ -4,213 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>КИБЕРБЕЗОПАСНОСТЬ | КИБЕР-КВЕСТ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0a0e1a;
-            --text-color: #e0e0e0;
-            --accent: #ff9100;
-            --accent-glow: rgba(255, 145, 0, 0.3);
-            --panel-bg: rgba(255, 255, 255, 0.03);
-            --border-color: rgba(255, 255, 255, 0.1);
-        }
-        body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 50% 80%, var(--accent-glow), transparent 30%),
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 30px 30px, 30px 30px;
-            color: var(--text-color);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        /* Верхняя панель */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 900px;
-            margin: 0 auto 30px auto;
-            background: var(--panel-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px 25px;
-        }
-        .logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
-        .timer { font-family: 'Share Tech Mono', monospace; font-size: 1.8rem; color: #ff3333; text-shadow: 0 0 10px rgba(255, 51, 51, 0.5); font-weight: bold; }
-        .dossier-btn {
-            background: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .dossier-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent-glow); }
-
-        /* Контейнер квеста */
-        .quest-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .stage {
-            background: var(--panel-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            animation: fadeInUp 0.6s ease;
-        }
-        .hidden { display: none !important; }
-        
-        h2 { font-family: 'Orbitron', sans-serif; color: var(--accent); margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
-        p { line-height: 1.6; font-size: 1.1rem; }
-        
-        .info-block {
-            background: rgba(255, 145, 0, 0.05);
-            border-left: 4px solid var(--accent);
-            padding: 15px;
-            border-radius: 0 8px 8px 0;
-            margin: 20px 0;
-            font-size: 0.95rem;
-            color: #e0c0a0;
-        }
-        .info-block strong { color: var(--accent); }
-
-        .terminal {
-            background: #000;
-            font-family: 'Share Tech Mono', monospace;
-            color: #00ff00;
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            margin: 15px 0;
-            word-break: break-all;
-            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.1);
-        }
-
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            box-sizing: border-box;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--border-color);
-            color: var(--accent);
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-family: 'Share Tech Mono', monospace;
-            margin-bottom: 15px;
-            transition: border-color 0.3s;
-        }
-        input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
-        
-        .btn {
-            background: var(--accent);
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .btn:hover { box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px); }
-        
-        .msg { color: #ff3333; margin-top: 10px; font-weight: 600; }
-        .hint { color: #ffaa00; margin-top: 10px; font-weight: 600; font-style: italic; }
-        
-        /* Модальное окно досье */
-        .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(5px);
-            display: none; justify-content: center; align-items: flex-start;
-            padding-top: 50px; z-index: 1000;
-            overflow-y: auto;
-        }
-        .modal.active { display: flex; }
-        .modal-content {
-            background: #1a1208;
-            border: 1px solid var(--accent);
-            border-radius: 16px;
-            width: 90%; max-width: 800px;
-            padding: 30px;
-            box-shadow: 0 0 30px var(--accent-glow);
-            position: relative;
-        }
-        .close-btn {
-            position: absolute; top: 15px; right: 20px;
-            background: none; border: none; color: #ff3333;
-            font-size: 2rem; cursor: pointer; transition: transform 0.2s;
-        }
-        .close-btn:hover { transform: scale(1.2); }
-        
-        .dossier-list { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .dossier-item {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px; border-radius: 8px;
-            transition: all 0.3s;
-        }
-        .dossier-item:hover { border-color: var(--accent); background: rgba(255, 145, 0, 0.05); }
-        .dossier-name { font-family: 'Orbitron', sans-serif; color: var(--accent); font-size: 1.1rem; margin-bottom: 8px; display: block; }
-        .dossier-text { font-size: 0.85rem; color: #d0c0b0; line-height: 1.5; }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!-- Верхняя панель -->
+<body class="theme-cyber">
+    
     <div class="top-bar">
-        <div class="logo">💻 КИБЕРБЕЗОПАСНОСТЬ</div>
+        <div class="logo">💻 <span>КИБЕРБЕЗОПАСНОСТЬ</span></div>
         <div class="timer" id="timer">02:25:00</div>
         <button class="dossier-btn" onclick="toggleDossier()">🔍 ДОСЬЕ</button>
     </div>
 
-    <!-- Модальное окно досье -->
     <div class="modal" id="dossierModal">
         <div class="modal-content">
             <button class="close-btn" onclick="toggleDossier()">×</button>
-            <h2 style="margin-top:0; border-color: var(--accent);">БАЗА ДАННЫХ ПОДОЗРЕВАЕМЫХ</h2>
-            <ul class="dossier-list" id="dossierList">
-                <!-- Заполняется через JS -->
-            </ul>
+            <h2 style="margin-top:0; font-size:1.6rem;">БАЗА ДАННЫХ</h2>
+            <ul class="dossier-list" id="dossierList"></ul>
         </div>
     </div>
 
-    <!-- Основной контент -->
     <div class="quest-container">
-        <!-- Этап 1 -->
+        <!-- ЭТАП 1 -->
         <div class="stage" id="stage1">
             <h2>ЭТАП 1: ЦИФРОВАЯ ЗАГАДКА</h2>
-            <p>При сканировании системы был обнаружен странный код-загадка. Разгадайте её: <br><br><strong>«Я несу информацию, но не говорю. Я храню данные, но не помню. Что я?»</strong></p>
+            <p>При сканировании системы был обнаружен странный код-загадка. Разгадайте её: <br><br><strong style="font-size:1.2rem; color:var(--accent);">«Я несу информацию, но не говорю. Я храню данные, но не помню. Что я?»</strong></p>
             <div class="info-block">
-                <strong>Сведения от шефа:</strong> Это устройство используется для хранения и переноса данных. Оно подключается к компьютеру через порт USB и не требует установки драйверов в современных системах. Обычно имеет небольшие размеры.
+                <strong>Сведения от шефа:</strong> Это устройство используется для хранения и переноса данных. Оно подключается к компьютеру через порт USB и имеет небольшие размеры.
             </div>
             <input type="text" id="input1" placeholder="Введите ответ">
             <button class="btn" onclick="check1()">ПРОВЕРИТЬ</button>
             <p class="msg" id="msg1"></p>
             <p class="hint" id="hint1"></p>
-            <div id="passBlock1" class="hidden" style="margin-top:15px; border-top:1px solid #333; padding-top:15px;">
-                <p style="color:#ffaa00; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
+            
+            <div id="passBlock1" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
+                <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
                 <input type="password" id="pass1" placeholder="Пароль шефа">
-                <button class="btn" style="background:#ffaa00; color:#000;" onclick="checkPass1()">ВВЕСТИ ПАРОЛЬ</button>
+                <button class="btn btn-warning" onclick="checkPass1()">ВВЕСТИ ПАРОЛЬ</button>
                 <p class="msg" id="passMsg1"></p>
                 <div id="answer1" class="hidden" style="margin-top:15px;">
                     <p style="color:#00ff00; font-weight:bold;">Правильный ответ: ФЛЕШКА</p>
@@ -219,7 +48,7 @@
             </div>
         </div>
 
-        <!-- Этап 2 -->
+        <!-- ЭТАП 2 -->
         <div class="stage hidden" id="stage2">
             <h2>ЭТАП 2: ПЕРЕКРЁСТНЫЙ КОД</h2>
             <p>Свяжитесь с отделом Полиции. Они получили код, который необходим для доступа к части файла. Введите этот код:</p>
@@ -227,41 +56,44 @@
             <button class="btn" onclick="check2()">ПОЛУЧИТЬ ДАННЫЕ</button>
             <p class="msg" id="msg2"></p>
             <p class="hint" id="hint2"></p>
-            <div id="passBlock2" class="hidden" style="margin-top:15px; border-top:1px solid #333; padding-top:15px;">
-                <p style="color:#ffaa00; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
+            
+            <div id="passBlock2" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
+                <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
                 <input type="password" id="pass2" placeholder="Пароль шефа">
-                <button class="btn" style="background:#ffaa00; color:#000;" onclick="checkPass2()">ВВЕСТИ ПАРОЛЬ</button>
+                <button class="btn btn-warning" onclick="checkPass2()">ВВЕСТИ ПАРОЛЬ</button>
                 <p class="msg" id="passMsg2"></p>
                 <div id="answer2" class="hidden" style="margin-top:15px;">
                     <p style="color:#00ff00; font-weight:bold;">Правильный ответ: POLICE-99</p>
                     <button class="btn" onclick="nextStage2()">ПРОДОЛЖИТЬ</button>
                 </div>
             </div>
+            
             <div id="part1Block" class="hidden">
-                <p>Доступ получен. Извлечена <strong>Часть 1 рецепта</strong>:</p>
+                <p style="margin-top:20px;">Доступ получен. Извлечена <strong>Часть 1 рецепта</strong>:</p>
                 <div class="terminal" id="part1Text">00101110 00100000 01010110 01100001 01110010 01101001 01110100 01110011 00100000 01100100 01101111 00100000 01111010 01101111 01101100 01101111 01110100 01101001 01110011 01110100 01101111 01100111 01101111 00100000 01100011 01110110 01100101 01110100 01100001 00101110 00100000 01010010 01100001 01111010 01101100 01101001 01110100 01110011 01111001 00100000 01110000 01101111 00100000 01100110 01101111 01110010 01101101 01101111 01100011 01101000 01101011 01100001 01101101 00101110</div>
-                <p style="font-size:0.9rem; color:#8892b0;">Сохраните этот код! Он понадобится в финале.</p>
+                <p style="font-size:0.9rem; color:var(--text-muted);">Сохраните этот код! Он понадобится в финале.</p>
                 <button class="btn" onclick="nextStage2b()">ПЕРЕЙТИ К ЭТАПУ 3</button>
             </div>
         </div>
 
-        <!-- Этап 3 -->
+        <!-- ЭТАП 3 -->
         <div class="stage hidden" id="stage3">
             <h2>ЭТАП 3: НЕЙРОСЕТИ В ДЕЛЕ</h2>
-            <p>Для получения второй части файла необходимо восстановить фоторобот подозреваемого. Используйте любую нейросеть для генерации изображений (например, Kandinsky, DALL-E или встроенную в браузер) и создайте портрет подозреваемого по описанию: <em>«Мужчина 30 лет, хакер, в капюшоне, за компьютером»</em>. Прикрепите полученный файл:</p>
-            <input type="file" id="file3" accept="image/*" style="margin-bottom:15px; color:#fff;">
+            <p>Для получения второй части файла необходимо восстановить фоторобот. Используйте нейросеть для генерации изображений и создайте портрет: <em>«Мужчина 30 лет, хакер, в капюшоне, за компьютером»</em>. Прикрепите файл:</p>
+            <input type="file" id="file3" accept="image/*">
             <button class="btn" onclick="check3()">ОТПРАВИТЬ ФАЙЛ</button>
             <p class="msg" id="msg3"></p>
             <p class="hint" id="hint3"></p>
+            
             <div id="part2Block" class="hidden">
-                <p>Фоторобот принят. Извлечена <strong>Часть 2 рецепта</strong>:</p>
+                <p style="margin-top:20px;">Фоторобот принят. Извлечена <strong>Часть 2 рецепта</strong>:</p>
                 <div class="terminal">01010010 01100101 01100011 01100101 01110000 01110100 00111010 00100000 00110001 00100000 01110011 01110100 01100001 01101011 01100001 01101110 00100000 01110011 01100001 01101000 01100001 01110010 01100001</div>
-                <p style="font-size:0.9rem; color:#8892b0;">Сохраните этот код! Он понадобится в финале.</p>
+                <p style="font-size:0.9rem; color:var(--text-muted);">Сохраните этот код! Он понадобится в финале.</p>
                 <button class="btn" onclick="nextStage3()">ПЕРЕЙТИ К ФИНАЛУ</button>
             </div>
         </div>
 
-        <!-- Этап 4 (Финал) -->
+        <!-- ЭТАП 4 -->
         <div class="stage hidden" id="stage4">
             <h2>ФИНАЛ: ОБЛИЧЕНИЕ</h2>
             <p>Вы собрали все части рецепта. Соедините их в один двоичный код и расшифруйте через онлайн-конвертер (binary to text).</p>
@@ -273,25 +105,26 @@
             <button class="btn" onclick="check4()">ОБЛИЧИТЬ</button>
             <p class="msg" id="msg4"></p>
             <p class="hint" id="hint4"></p>
-            <div id="passBlock4" class="hidden" style="margin-top:15px; border-top:1px solid #333; padding-top:15px;">
-                <p style="color:#ffaa00; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
+            
+            <div id="passBlock4" class="hidden" style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
+                <p style="color:#ffbb33; font-size:0.9rem;">Требуется пароль от шефа (родительский контроль):</p>
                 <input type="password" id="pass4" placeholder="Пароль шефа">
-                <button class="btn" style="background:#ffaa00; color:#000;" onclick="checkPass4()">ВВЕСТИ ПАРОЛЬ</button>
+                <button class="btn btn-warning" onclick="checkPass4()">ВВЕСТИ ПАРОЛЬ</button>
                 <p class="msg" id="passMsg4"></p>
                 <div id="answer4" class="hidden" style="margin-top:15px;">
                     <p style="color:#00ff00; font-weight:bold;">Правильный ответ: Дана Сергеевна</p>
                     <button class="btn" onclick="nextStage4()">ЗАВЕРШИТЬ</button>
                 </div>
             </div>
-            <div id="finalBlock" class="hidden" style="text-align:center; padding:30px; background:rgba(255,145,0,0.1); border-radius:16px; border:1px solid var(--accent);">
-                <h2 style="color:#00ff00; font-size:2rem;">🎉 ДЕЛО ЗАКРЫТО!</h2>
-                <p style="font-size:1.2rem;">Преступник — <strong>Дана Сергеевна</strong>. Мотив: приготовить карамель для детей. Заберите рецепт и Chupa Chups!</p>
+            
+            <div id="finalBlock" class="final-block hidden">
+                <h2>🎉 ДЕЛО ЗАКРЫТО!</h2>
+                <p style="font-size:1.2rem; color:#fff;">Преступник — <strong>Дана Сергеевна</strong>. Мотив: приготовить карамель для детей. Заберите рецепт и Chupa Chups!</p>
             </div>
         </div>
     </div>
 
     <script>
-        // --- ДАННЫЕ ДОСЬЕ (идентичны Полиции и ФБР) ---
         const dossierData = [
             { name: "Багров Дмитрий Иванович", text: "Начинал как сисадмин школьного кабинета. Разрабатывал скрипты для автоматизации домашки. Завербован за нестандартное мышление. Склонен к самоуверенности. Алиби: был в столовой, но время не подтверждено." },
             { name: "Батенева Милана Сергеевна", text: "Победитель олимпиад по математике. Решает сложные логические задачи, но не терпит спешки. Пришла по рекомендации преподавателя. Решала задачи в кабинете одна. Обладает феноменальной памятью на числа." },
@@ -308,7 +141,6 @@
             { name: "Дана Сергеевна (Шеф)", text: "Руководитель отдела. Знает всё обо всех. В последнее время ведёт себя странно: отлучается и что-то печатает. Нет подтверждённого алиби — была на совещании, но никто не видел. На флешке найден её отпечаток. Мотив: приготовить карамель для детей." }
         ];
 
-        // Заполнение досье
         const list = document.getElementById('dossierList');
         dossierData.forEach(item => {
             const li = document.createElement('li');
@@ -317,94 +149,52 @@
             list.appendChild(li);
         });
 
-        function toggleDossier() {
-            document.getElementById('dossierModal').classList.toggle('active');
-        }
+        function toggleDossier() { document.getElementById('dossierModal').classList.toggle('active'); }
 
-        // --- ТАЙМЕР (Ключ CYBER) ---
-        let timeLeft = 8700; // 2 часа 25 минут
-        if (localStorage.getItem('cyber_timer')) {
-            timeLeft = parseInt(localStorage.getItem('cyber_timer'));
-        }
+        let timeLeft = 8700;
+        if (localStorage.getItem('cyber_timer')) timeLeft = parseInt(localStorage.getItem('cyber_timer'));
         function updateTimer() {
-            if (timeLeft <= 0) {
-                document.getElementById('timer').innerText = '00:00:00';
-                return;
-            }
-            let h = Math.floor(timeLeft / 3600);
-            let m = Math.floor((timeLeft % 3600) / 60);
-            let s = timeLeft % 60;
-            document.getElementById('timer').innerText = 
-                String(h).padStart(2, '0') + ':' + 
-                String(m).padStart(2, '0') + ':' + 
-                String(s).padStart(2, '0');
-            timeLeft--;
-            localStorage.setItem('cyber_timer', timeLeft);
+            if (timeLeft <= 0) { document.getElementById('timer').innerText = '00:00:00'; return; }
+            let h = Math.floor(timeLeft / 3600), m = Math.floor((timeLeft % 3600) / 60), s = timeLeft % 60;
+            document.getElementById('timer').innerText = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            timeLeft--; localStorage.setItem('cyber_timer', timeLeft);
         }
-        setInterval(updateTimer, 1000);
-        updateTimer();
+        setInterval(updateTimer, 1000); updateTimer();
 
-        // --- ЛОГИКА ЭТАПОВ ---
-        let state = {
-            stage: 1,
-            attempts: 0
-        };
-
-        // Восстановление прогресса (Ключ CYBER)
-        if (localStorage.getItem('cyber_state')) {
-            state = JSON.parse(localStorage.getItem('cyber_state'));
-            showStage(state.stage);
-        }
-
-        function saveState() {
-            localStorage.setItem('cyber_state', JSON.stringify(state));
-        }
-
+        let state = { stage: 1, attempts: 0 };
+        if (localStorage.getItem('cyber_state')) state = JSON.parse(localStorage.getItem('cyber_state'));
+        function saveState() { localStorage.setItem('cyber_state', JSON.stringify(state)); }
         function showStage(num) {
-            for (let i = 1; i <= 4; i++) {
-                document.getElementById(`stage${i}`).classList.add('hidden');
-            }
+            for (let i = 1; i <= 4; i++) document.getElementById(`stage${i}`).classList.add('hidden');
             document.getElementById(`stage${num}`).classList.remove('hidden');
         }
+        if (state.stage) showStage(Math.floor(state.stage));
 
         function handleCheck(stageNum, correctAnswer, nextStageNum) {
             let val = document.getElementById(`input${stageNum}`).value.trim().toLowerCase();
             if (val === correctAnswer.toLowerCase()) {
-                state.stage = nextStageNum;
-                state.attempts = 0;
-                saveState();
-                showStage(nextStageNum);
+                state.stage = nextStageNum; state.attempts = 0; saveState(); showStage(nextStageNum);
             } else {
-                state.attempts++;
-                saveState();
+                state.attempts++; saveState();
                 let msgEl = document.getElementById(`msg${stageNum}`);
                 let hintEl = document.getElementById(`hint${stageNum}`);
                 let passBlock = document.getElementById(`passBlock${stageNum}`);
-                
                 if (state.attempts >= 10) {
-                    msgEl.innerText = "Лимит попыток исчерпан.";
-                    hintEl.innerText = "";
-                    passBlock.classList.remove('hidden');
+                    msgEl.innerText = "Лимит попыток исчерпан."; hintEl.innerText = ""; passBlock.classList.remove('hidden');
                 } else if (state.attempts >= 6) {
-                    msgEl.innerText = "Неверно.";
-                    hintEl.innerText = getHint(stageNum);
+                    msgEl.innerText = "Неверно."; hintEl.innerText = getHint(stageNum);
                 } else {
-                    msgEl.innerText = "Неверно! Попробуйте ещё раз.";
-                    hintEl.innerText = "";
+                    msgEl.innerText = "Неверно! Попробуйте ещё раз."; hintEl.innerText = "";
                 }
             }
         }
 
         function getHint(stageNum) {
-            const hints = {
-                1: "Подсказка: Это небольшое устройство, которое подключается к компьютеру через USB.",
-                2: "Подсказка: Код начинается с названия отдела и числа.",
-                4: "Подсказка: У кого из подозреваемых нет подтверждённого алиби?"
-            };
+            const hints = { 1: "Подсказка: Это небольшое устройство для хранения данных.", 2: "Подсказка: Код начинается с названия отдела.", 4: "Подсказка: У кого нет подтверждённого алиби?" };
             return hints[stageNum] || "Обратитесь к шефу.";
         }
 
-        function handlePass(stageNum, nextStageNum) {
+        function handlePass(stageNum) {
             let pass = document.getElementById(`pass${stageNum}`).value.trim();
             if (pass === '1357') {
                 document.getElementById(`passMsg${stageNum}`).innerText = "";
@@ -415,79 +205,34 @@
             }
         }
 
-        // Этап 1
         function check1() { handleCheck(1, 'флешка', 2); }
-        function checkPass1() { handlePass(1, 2); }
+        function checkPass1() { handlePass(1); }
         function nextStage1() { state.stage = 2; state.attempts = 0; saveState(); showStage(2); }
 
-        // Этап 2
         function check2() { 
             let val = document.getElementById('input2').value.trim();
             if (val === 'POLICE-99') {
-                state.stage = 2.5;
-                saveState();
-                document.getElementById('part1Block').classList.remove('hidden');
-                document.getElementById('msg2').innerText = "";
-            } else {
-                handleCheck(2, 'POLICE-99', 2); 
-            }
+                state.stage = 2.5; saveState(); document.getElementById('part1Block').classList.remove('hidden'); document.getElementById('msg2').innerText = "";
+            } else handleCheck(2, 'POLICE-99', 2); 
         }
-        function checkPass2() { handlePass(2, 2); }
-        function nextStage2() { 
-            document.getElementById('part1Block').classList.remove('hidden');
-            document.getElementById('passBlock2').classList.add('hidden');
-            document.getElementById('msg2').innerText = "";
-            state.stage = 2.5;
-            saveState();
-        }
-        function nextStage2b() {
-            state.stage = 3;
-            state.attempts = 0;
-            saveState();
-            showStage(3);
-        }
+        function checkPass2() { handlePass(2); }
+        function nextStage2() { document.getElementById('part1Block').classList.remove('hidden'); document.getElementById('passBlock2').classList.add('hidden'); document.getElementById('msg2').innerText = ""; state.stage = 2.5; saveState(); }
+        function nextStage2b() { state.stage = 3; state.attempts = 0; saveState(); showStage(3); }
 
-        // Этап 3
         function check3() {
             let file = document.getElementById('file3').files[0];
-            if (file) {
-                document.getElementById('msg3').innerText = "";
-                document.getElementById('part2Block').classList.remove('hidden');
-                state.stage = 3.5;
-                saveState();
-            } else {
-                document.getElementById('msg3').innerText = "Пожалуйста, прикрепите файл!";
-            }
+            if (file) { document.getElementById('msg3').innerText = ""; document.getElementById('part2Block').classList.remove('hidden'); state.stage = 3.5; saveState(); } 
+            else document.getElementById('msg3').innerText = "Прикрепите файл!";
         }
-        function nextStage3() {
-            state.stage = 4;
-            state.attempts = 0;
-            saveState();
-            showStage(4);
-        }
+        function nextStage3() { state.stage = 4; state.attempts = 0; saveState(); showStage(4); }
 
-        // Этап 4
         function check4() { handleCheck(4, 'дана сергеевна', 5); }
-        function checkPass4() { handlePass(4, 5); }
-        function nextStage4() {
-            document.getElementById('finalBlock').classList.remove('hidden');
-            document.getElementById('passBlock4').classList.add('hidden');
-            document.getElementById('msg4').innerText = "";
-            state.stage = 6;
-            saveState();
-        }
+        function checkPass4() { handlePass(4); }
+        function nextStage4() { document.getElementById('finalBlock').classList.remove('hidden'); document.getElementById('passBlock4').classList.add('hidden'); document.getElementById('msg4').innerText = ""; state.stage = 6; saveState(); }
 
-        // Восстановление промежуточных состояний
-        if (state.stage === 2.5) {
-            showStage(2);
-            document.getElementById('part1Block').classList.remove('hidden');
-        } else if (state.stage === 3.5) {
-            showStage(3);
-            document.getElementById('part2Block').classList.remove('hidden');
-        } else if (state.stage === 6) {
-            showStage(4);
-            document.getElementById('finalBlock').classList.remove('hidden');
-        }
+        if (state.stage === 2.5) { showStage(2); document.getElementById('part1Block').classList.remove('hidden'); } 
+        else if (state.stage === 3.5) { showStage(3); document.getElementById('part2Block').classList.remove('hidden'); } 
+        else if (state.stage === 6) { showStage(4); document.getElementById('finalBlock').classList.remove('hidden'); }
     </script>
 </body>
 </html>
